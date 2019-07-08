@@ -1,45 +1,63 @@
+import json
 import requests
-import re
 
-SYLLABUS_URL = 'https://campus.dhw.ac.jp/public/web/Syllabus/WebSyllabusKensaku/UI/WSL_SyllabusKensaku.aspx'
+import sanitizer
+from constants import SYLLABUS_URL
 
-viewstate_reg = re.compile(r'__VIEWSTATE[\s\S]+?value="(.+?)"')
-subject_reg = re.compile('<td class="col-width-btn">([\s\S]+?)<\/tr>')
-subject_field_reg = re.compile('<td>([\s\S]+?)</td>')
+# import time
+
+ALL_DATA = []
 
 
 def main():
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36'
-    }
-
+    print('\n========= start =========\n')
     s = requests.session()
 
-    first_render_page_text = s.get(SYLLABUS_URL).text
-    first_render_viewstate_token = get_viewstate_token(first_render_page_text)
+    page_text = s.get(SYLLABUS_URL).text
+    viewstate = sanitizer.get_viewstate(page_text)
 
-    first_render_data = {
-        '__VIEWSTATE': first_render_viewstate_token,
+    form_data = {
+        '__VIEWSTATE': viewstate,
         'btnSearch': '以上の条件で検索'
     }
 
-    page_1_text = s.post(
-        SYLLABUS_URL,
-        data=first_render_data).text
+    page = get_page(s, form_data, 1)
 
-    get_page_data(page_1_text)
+    postback_list = sanitizer.get_postback_list(page['text'])
+
+    for i, postback in enumerate(postback_list[:int(len(postback_list) / 2)]):
+
+        form_data = {
+            '__EVENTTARGET': postback.replace('$', ':'),
+            '__VIEWSTATE': page['viewstate']
+        }
+
+        page = get_page(s, form_data, i + 2)
+
+    print(len(ALL_DATA))
 
 
-def get_viewstate_token(page_text):
-    return viewstate_reg.findall(page_text)[0]
+def get_page(s, form_data, index):
+    print(f'\n========= page {index} =========\n')
+    page_text = s.post(SYLLABUS_URL, data=form_data).text
+
+    viewstate = sanitizer.get_viewstate(page_text)
+
+    global ALL_DATA
+    page_data_list = sanitizer.get_page_data_list(page_text)
+    ALL_DATA += page_data_list
+
+    save({'data': ALL_DATA})
+    return {
+        'viewstate': viewstate,
+        'text': page_text,
+    }
 
 
-def get_page_data(page_text):
-    tag_list = subject_reg.findall(page_text)
-
-    for tag in tag_list:
-        tags = subject_field_reg.findall(tag)
-        print(tags)
+def save(data):
+    with open('../data/syllabus.json', 'w') as s:
+        json.dump(data, s, ensure_ascii=False, indent=4)
+    print('========= saved! =========')
 
 
 if __name__ == '__main__':
