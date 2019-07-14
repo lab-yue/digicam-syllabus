@@ -18,7 +18,7 @@ class TestSanitizer(unittest.TestCase):
             'time': '通年',
             'location': '駿河台キャンパス',
             'type': 'ゼミ',
-            'teacherList': 'XXX',
+            'teacher': 'XXX',
             'catagory': '研究科目',
             'field': '',
             'year': '4',

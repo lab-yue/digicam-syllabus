@@ -16,6 +16,9 @@ def get_postback_list(page_text):
     return postback_reg.findall(page_text)
 
 
+contents
+
+
 def get_page_summary(tag):
 
     field_list = subject_field_reg.findall(tag)
@@ -27,7 +30,7 @@ def get_page_summary(tag):
         'time': field_list[4],
         'location': field_list[5],
         'type': field_list[6],
-        'teacherList': field_list[7],
+        'teacher': field_list[7],
         'catagory': field_list[8],
         'field': field_list[9],
         'year': field_list[10],
