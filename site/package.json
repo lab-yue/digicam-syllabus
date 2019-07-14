@@ -2,8 +2,8 @@
   "name": "syllabus",
   "private": true,
   "scripts": {
-    "build": "gridsome build",
-    "develop": "gridsome develop",
+    "gen": "gridsome build",
+    "dev": "gridsome develop",
     "explore": "gridsome explore"
   },
   "dependencies": {
