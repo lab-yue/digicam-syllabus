@@ -1,5 +1,5 @@
 {
-  "name": "frontend",
+  "name": "syllabus",
   "private": true,
   "scripts": {
     "build": "gridsome build",
@@ -7,6 +7,9 @@
     "explore": "gridsome explore"
   },
   "dependencies": {
-    "gridsome": "^0.6.0"
+    "gridsome": "^0.6.0",
+    "node-sass": "^4.12.0",
+    "sass-loader": "^7.1.0",
+    "style-resources-loader": "^1.2.1"
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <syllabus-layout class="teacher">
-    <h1 class="syllabus-page-title">{{$page.teacher.name}}</h1>
+    <h1 class="syllabus-page-title">{{$page.category.name}}</h1>
     <p class="teacher-subjects-count">
       講義数
       <span class="syllabus-page-title-count">{{subjects.length}}</span>
@@ -11,8 +11,8 @@
 </template>
 
 <page-query>
-query Teacher($id: String!){
-  teacher: teacher (id: $id) {
+query Category($id: String!){
+  category: category (id: $id) {
     name
     subjects{
       id
@@ -26,19 +26,19 @@ query Teacher($id: String!){
 export default {
   metaInfo() {
     return {
-      title: this.$page.teacher.name
+      title: this.$page.category.name
     };
   },
   computed: {
     subjects() {
-      let subjects = this.$page.teacher.subjects.map(({ title, id }) => {
+      let items = this.$page.category.subjects.map(({ title, id }) => {
         return {
           id,
           name: title,
           url: `/subject/${id}`
         };
       });
-      return subjects;
+      return items;
     }
   }
 };

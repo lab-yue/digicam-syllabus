@@ -1,13 +1,48 @@
 <template>
-  <div>
-    <h2>Teachers</h2>
-    <ul>
-      <li v-for="edge in $page.allTeacher.edges" :key="edge.node.id">
-        <g-link :to="`/teacher/${edge.node.id}`">{{ edge.node.name }}</g-link>
-      </li>
-    </ul>
-  </div>
+  <syllabus-layout class="teacher">
+    <h1 class="syllabus-page-title">
+      All
+      <span class="syllabus-page-title-count">{{teachers.length}}</span>Teachers
+    </h1>
+
+    <input class="syllabus-input" placeholder="名前検索" v-model="searchText" />
+
+    <transition-group name="syllabus-tags" tag="nav">
+      <syllabus-button :link="link" v-for="link in teachers" :key="link.name" />
+    </transition-group>
+  </syllabus-layout>
 </template>
+
+<script>
+export default {
+  metaInfo: {
+    title: "Teachers"
+  },
+  data() {
+    return {
+      searchText: ""
+    };
+  },
+  computed: {
+    teachers() {
+      let teachers = this.$page.allTeacher.edges.map(edge => {
+        const { name, id } = edge.node;
+        return {
+          name,
+          url: `/teacher/${id}`
+        };
+      });
+
+      if (this.searchText) {
+        teachers = teachers.filter(teacher =>
+          teacher.name.includes(this.searchText)
+        );
+      }
+      return teachers;
+    }
+  }
+};
+</script>
 
 <page-query>
 query {
@@ -21,11 +56,6 @@ query {
   }
 }
 </page-query>
-
-<script>
-export default {};
-</script>
-
 
 <style lang="scss" scoped>
 </style>

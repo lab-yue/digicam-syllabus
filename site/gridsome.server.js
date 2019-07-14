@@ -22,9 +22,14 @@ module.exports = function (api) {
       route: '/teacher/:id'
     })
 
-    const catagoyType = addContentType({
-      typeName: 'Catagory',
-      route: '/catagory/:id'
+    const categoyType = addContentType({
+      typeName: 'Category',
+      route: '/category/:id'
+    })
+
+    const fieldType = addContentType({
+      typeName: 'Field',
+      route: '/field/:id'
     })
 
     const yearType = addContentType({
@@ -35,6 +40,7 @@ module.exports = function (api) {
     const teachers = {}
     const categories = {}
     const years = {}
+    const fields = {}
 
     const gather = (collection, key, code) => {
       if (key in collection) {
@@ -61,13 +67,15 @@ module.exports = function (api) {
 
     syllabus.data.map(subject => {
       gather(teachers, subject.teacher, subject.code)
-      gather(categories, subject.catagory, subject.code)
+      gather(categories, subject.category, subject.code)
       gather(years, subject.year, subject.code)
+      gather(fields, subject.field, subject.code)
     })
 
     create(teacherType, teachers)
-    create(catagoyType, categories)
+    create(categoyType, categories)
     create(yearType, years)
+    create(fieldType, fields)
 
     syllabus.data.map(subject => {
 
@@ -82,7 +90,7 @@ module.exports = function (api) {
         id: subject.code,
         detail: createReference(detailNode),
         teacher: createReference('Teacher', teachers[subject.teacher].id),
-        categories: createReference('Catagoy', categories[subject.catagory].id),
+        categories: createReference('Categoy', categories[subject.category].id),
         year: createReference('Year', years[subject.year].id)
       })
     })

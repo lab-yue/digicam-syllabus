@@ -1,0 +1,63 @@
+$theme-grey: #63707e;
+$theme-green: #93b5b3;
+$theme-light-green: #c8dad3;
+$theme-pale-green: #f2f6f5;
+
+.syllabus {
+  &-title {
+    margin-top: 10rem;
+    font-size: 5rem;
+    color: $theme-green;
+    text-align: center;
+  }
+  &-page {
+    &-title {
+      margin-top: 1rem;
+      font-size: 2rem;
+      color: $theme-green;
+      text-align: center;
+      &-count {
+        background-color: slategrey;
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 5px;
+        margin: 0 0.5rem;
+      }
+    }
+  }
+  &-input {
+    font-size: 1.4rem;
+    text-align: center;
+    border: 0;
+    border-bottom: 2px solid #ccc;
+    margin: 3rem auto;
+    display: block;
+    &::placeholder {
+      color: #ccc;
+    }
+    &:focus {
+      outline: none;
+      border-bottom: 2px solid $theme-green;
+    }
+  }
+
+  &-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  &-tags {
+    &-complete-item {
+      transition: all 0.3s;
+      display: inline-block;
+    }
+    &-complete-enter,
+    &-complete-leave-to {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    &-complete-leave-active {
+      position: absolute;
+    }
+  }
+}
