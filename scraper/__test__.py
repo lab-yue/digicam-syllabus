@@ -19,7 +19,7 @@ class TestSanitizer(unittest.TestCase):
             'location': '駿河台キャンパス',
             'type': 'ゼミ',
             'teacher': 'XXX',
-            'catagory': '研究科目',
+            'category': '研究科目',
             'field': '',
             'year': '4',
             'compulsory': '必修'

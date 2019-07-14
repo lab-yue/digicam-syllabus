@@ -31,7 +31,7 @@ def get_page_summary(tag):
         'location': field_list[5],
         'type': field_list[6],
         'teacher': field_list[7],
-        'catagory': field_list[8],
+        'category': field_list[8],
         'field': field_list[9],
         'year': field_list[10],
         'compulsory': field_list[11]
