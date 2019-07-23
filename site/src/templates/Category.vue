@@ -15,8 +15,10 @@ query Category($id: String!){
   category: category (id: $id) {
     name
     subjects{
-      id
-      title
+      node {
+        id
+        title
+      }
     }
   }
 }

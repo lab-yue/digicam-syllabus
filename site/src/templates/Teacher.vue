@@ -15,8 +15,10 @@ query Teacher($id: String!){
   teacher: teacher (id: $id) {
     name
     subjects{
-      id
-      title
+      node{
+        id
+        title
+      }
     }
   }
 }
@@ -31,7 +33,7 @@ export default {
   },
   computed: {
     subjects() {
-      let subjects = this.$page.teacher.subjects.map(({ title, id }) => {
+      let subjects = this.$page.teacher.subjects.node.map(({ title, id }) => {
         return {
           id,
           name: title,

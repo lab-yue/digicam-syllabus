@@ -15,8 +15,11 @@ query Field($id: String!){
   field: field (id: $id) {
     name
     subjects{
-      id
-      title
+      totalCount
+      node{
+        id
+        title
+      }
     }
   }
 }
@@ -31,7 +34,7 @@ export default {
   },
   computed: {
     subjects() {
-      let items = this.$page.field.subjects.map(({ title, id }) => {
+      let items = this.$page.field.subjects.node.map(({ title, id }) => {
         return {
           id,
           name: title,

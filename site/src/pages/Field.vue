@@ -26,10 +26,11 @@ export default {
   computed: {
     fields() {
       let items = this.$page.allField.edges.map(edge => {
-        const { name, id } = edge.node;
+        const { name, id, subjects } = edge.node;
         return {
           id,
           name: name,
+          extra: subjects.totalCount,
           url: `/field/${id}`
         };
       });
@@ -50,6 +51,9 @@ query {
       node{
         id
         name
+        subjects {
+          totalCount
+        }
       }
     }
   }

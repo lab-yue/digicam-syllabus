@@ -19,9 +19,9 @@ export default {
     transition: 0.3s all ease-in-out;
     font-size: 1.2rem;
     border-bottom: 1px solid $theme-pale-green;
-    padding: 1rem;
     a {
       display: block;
+      padding: 2rem;
     }
     &:hover {
       background-color: $theme-pale-green;

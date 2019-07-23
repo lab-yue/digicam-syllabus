@@ -60,7 +60,10 @@ module.exports = function (api) {
           id: id.toString(),
           name: key || "unknown",
           ...val,
-          subjects: createReference('Subject', val.subjects)
+          subjects: {
+            totalCount: val.subjects.length,
+            node: createReference('Subject', val.subjects)
+          }
         })
       })
     }

@@ -26,10 +26,11 @@ export default {
   computed: {
     categories() {
       let items = this.$page.allCategory.edges.map(edge => {
-        const { name, id } = edge.node;
+        const { name, id, subjects } = edge.node;
         return {
           id,
-          name: name,
+          name,
+          extra: subjects.totalCount,
           url: `/category/${id}`
         };
       });
@@ -50,6 +51,9 @@ query {
       node{
         id
         name
+        subjects{
+          totalCount
+        }
       }
     }
   }

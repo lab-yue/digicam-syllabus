@@ -26,8 +26,9 @@ export default {
   computed: {
     teachers() {
       let teachers = this.$page.allTeacher.edges.map(edge => {
-        const { name, id } = edge.node;
+        const { name, id, subjects } = edge.node;
         return {
+          extra: subjects.totalCount,
           name,
           url: `/teacher/${id}`
         };
@@ -51,6 +52,9 @@ query {
       node {
         id
         name
+        subjects{
+          totalCount
+        }
       }
     }
   }
