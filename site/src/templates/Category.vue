@@ -33,7 +33,7 @@ export default {
   },
   computed: {
     subjects() {
-      let items = this.$page.category.subjects.map(({ title, id }) => {
+      let items = this.$page.category.subjects.node.map(({ title, id }) => {
         return {
           id,
           name: title,
