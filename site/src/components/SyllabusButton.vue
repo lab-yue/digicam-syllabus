@@ -1,11 +1,14 @@
 <template>
   <span class="syllabus-button">
     <g-link
-      :class="['syllabus-button-link',{'syllabus-button-link--padding':link.extra}]"
+      :class="[
+        'syllabus-button-link',
+        { 'syllabus-button-link--padding': link.extra }
+      ]"
       :to="link.url"
     >
-      {{link.name}}
-      <span class="syllabus-button-extra">{{link.extra}}</span>
+      {{ link.name }}
+      <span class="syllabus-button-extra">{{ link.extra }}</span>
     </g-link>
   </span>
 </template>
@@ -15,7 +18,6 @@ export default {
   props: ["link"]
 };
 </script>
-
 
 <style lang="scss">
 .syllabus-button {

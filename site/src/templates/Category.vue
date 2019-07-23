@@ -1,9 +1,9 @@
 <template>
   <syllabus-layout class="teacher">
-    <h1 class="syllabus-page-title">{{$page.category.name}}</h1>
+    <h1 class="syllabus-page-title">{{ $page.category.name }}</h1>
     <p class="teacher-subjects-count">
       講義数
-      <span class="syllabus-page-title-count">{{subjects.length}}</span>
+      <span class="syllabus-page-title-count">{{ subjects.length }}</span>
     </p>
 
     <syllabus-list :items="subjects" />
@@ -11,10 +11,10 @@
 </template>
 
 <page-query>
-query Category($id: String!){
-  category: category (id: $id) {
+query Category($id: String!) {
+  category: category(id: $id) {
     name
-    subjects{
+    subjects {
       node {
         id
         title

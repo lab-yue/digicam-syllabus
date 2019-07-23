@@ -1,9 +1,9 @@
 <template>
   <syllabus-layout class="teacher">
-    <h1 class="syllabus-page-title">{{$page.teacher.name}}</h1>
+    <h1 class="syllabus-page-title">{{ $page.teacher.name }}</h1>
     <p class="teacher-subjects-count">
       講義数
-      <span class="syllabus-page-title-count">{{subjects.length}}</span>
+      <span class="syllabus-page-title-count">{{ subjects.length }}</span>
     </p>
 
     <syllabus-list :items="subjects" />
@@ -11,11 +11,11 @@
 </template>
 
 <page-query>
-query Teacher($id: String!){
-  teacher: teacher (id: $id) {
+query Teacher($id: String!) {
+  teacher: teacher(id: $id) {
     name
-    subjects{
-      node{
+    subjects {
+      node {
         id
         title
       }

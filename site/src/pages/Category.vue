@@ -2,10 +2,15 @@
   <syllabus-layout>
     <h2 class="syllabus-page-title">
       All
-      <span class="syllabus-page-title-count">{{categories.length}}</span> Categories
+      <span class="syllabus-page-title-count">{{ categories.length }}</span>
+      Categories
     </h2>
 
-    <input class="syllabus-input" placeholder="カテゴリ検索" v-model="searchText" />
+    <input
+      class="syllabus-input"
+      placeholder="カテゴリ検索"
+      v-model="searchText"
+    />
 
     <transition-group name="syllabus-tags" tag="nav">
       <syllabus-button :link="link" v-for="link in categories" :key="link.id" />
@@ -47,11 +52,11 @@ export default {
 <page-query>
 query {
   allCategory {
-    edges{
-      node{
+    edges {
+      node {
         id
         name
-        subjects{
+        subjects {
           totalCount
         }
       }
@@ -60,6 +65,4 @@ query {
 }
 </page-query>
 
-
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

@@ -2,7 +2,8 @@
   <syllabus-layout class="teacher">
     <h1 class="syllabus-page-title">
       All
-      <span class="syllabus-page-title-count">{{teachers.length}}</span>Teachers
+      <span class="syllabus-page-title-count">{{ teachers.length }}</span
+      >Teachers
     </h1>
 
     <input class="syllabus-input" placeholder="名前検索" v-model="searchText" />
@@ -52,7 +53,7 @@ query {
       node {
         id
         name
-        subjects{
+        subjects {
           totalCount
         }
       }
@@ -61,5 +62,4 @@ query {
 }
 </page-query>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

@@ -1,16 +1,18 @@
 <template>
   <syllabus-layout class="subject">
-    <h1 class="syllabus-page-title">{{$page.subject.title}}</h1>
+    <h1 class="syllabus-page-title">{{ $page.subject.title }}</h1>
     <p class="subject-teacher">
-      <g-link :to="`/teacher/${this.$page.subject.teacher.id}`">{{this.$page.subject.teacher.name}}</g-link>
+      <g-link :to="`/teacher/${this.$page.subject.teacher.id}`">{{
+        this.$page.subject.teacher.name
+      }}</g-link>
     </p>
-    <pre>{{JSON.stringify($page.subject,null,4)}}</pre>
+    <pre>{{ JSON.stringify($page.subject, null, 4) }}</pre>
   </syllabus-layout>
 </template>
 
 <page-query>
-query Subject($id: String!){
-  subject: subject(id:$id) {
+query Subject($id: String!) {
+  subject: subject(id: $id) {
     title
     subtitle
     generalTitle
@@ -19,11 +21,11 @@ query Subject($id: String!){
     type
     category
     field
-    year{
+    year {
       name
     }
     compulsory
-    detail{
+    detail {
       purpose
       target
       message
@@ -34,7 +36,7 @@ query Subject($id: String!){
       gradePolicy
       department
     }
-    teacher{
+    teacher {
       id
       name
     }

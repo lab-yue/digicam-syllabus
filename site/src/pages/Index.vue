@@ -3,7 +3,12 @@
     <h1 class="syllabus-title">Syllabus</h1>
 
     <div class="syllabus-container">
-      <syllabus-button class="home-button" :link="link" v-for="link in links" :key="link.name" />
+      <syllabus-button
+        class="home-button"
+        :link="link"
+        v-for="link in links"
+        :key="link.name"
+      />
     </div>
   </main>
 </template>

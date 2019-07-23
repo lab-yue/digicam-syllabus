@@ -1,7 +1,9 @@
 <template>
   <ul class="syllabus-list">
     <li class="syllabus-list-item" v-for="item in items" :key="item.id">
-      <g-link class="syllabus-button-link" :to="item.url">{{item.name}}</g-link>
+      <g-link class="syllabus-button-link" :to="item.url">{{
+        item.name
+      }}</g-link>
     </li>
   </ul>
 </template>
@@ -11,7 +13,6 @@ export default {
   props: ["items"]
 };
 </script>
-
 
 <style lang="scss">
 .syllabus-list {
