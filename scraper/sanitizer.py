@@ -6,17 +6,14 @@ from lxml import html
 from constants import HOST
 
 viewstate_reg = re.compile(r'__VIEWSTATE[\s\S]+?value="(.+?)"')
-subject_reg = re.compile('<td class="col-width-btn">([\s\S]+?)<\/tr>')
-subject_field_reg = re.compile('<td>([\s\S]*?)</td>')
+subject_reg = re.compile(r'<td class="col-width-btn">([\s\S]+?)<\/tr>')
+subject_field_reg = re.compile(r'<td>([\s\S]*?)</td>')
 detail_link_reg = re.compile(r"window\.open\('(.+?)',")
 postback_reg = re.compile(r"javascript:__doPostBack\('(.+?)'")
 
 
 def get_postback_list(page_text):
     return postback_reg.findall(page_text)
-
-
-contents
 
 
 def get_page_summary(tag):
