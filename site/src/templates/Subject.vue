@@ -86,41 +86,40 @@ query Subject($id: String!) {
 <script>
 export default {
   metaInfo() {
-    return [
-      {
-        title: this.$page.subject.title
-      }
-    ];
+    return {
+      title: this.$page.subject.title
+    };
   },
   computed: {
     tags() {
+      const subject = this.$page.subject;
       return [
         {
-          name: this.$page.subject.time,
+          name: subject.time,
           url: `#`
         },
         {
-          name: this.$page.subject.location,
+          name: subject.location,
           url: `#`
         },
         {
-          name: this.$page.subject.type,
+          name: subject.type,
           url: `#`
         },
         {
-          name: this.$page.subject.category,
+          name: subject.category,
           url: `#`
         },
         {
-          name: this.$page.subject.field,
+          name: subject.field,
           url: `#`
         },
         {
-          name: this.$page.subject.year.name + "年",
+          name: subject.year.name + "年",
           url: `#`
         },
         {
-          name: this.$page.subject.compulsory,
+          name: subject.compulsory,
           url: `#`
         }
       ].filter(tag => tag.name && tag.name !== "不明");
