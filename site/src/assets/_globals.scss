@@ -11,6 +11,27 @@ $theme-pale-green: #f2f6f5;
     text-align: center;
   }
   &-page {
+    &-statistics {
+      &-wrapper {
+        padding: 0 2rem;
+
+        //&:hover {
+        //  .syllabus-page-statistics-title::before {
+        //    transform: rotate(1turn);
+        //  }
+        //}
+      }
+      &-title {
+        color: slategrey;
+
+        &::before {
+          //transition: 0.3s all ease-in-out;
+          content: "❖";
+          margin-right: 1rem;
+          display: inline-block;
+        }
+      }
+    }
     &-title {
       margin-top: 1rem;
       font-size: 2rem;

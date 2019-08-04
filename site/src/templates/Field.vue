@@ -5,6 +5,7 @@
       講義数
       <span class="syllabus-page-title-count">{{ subjects.length }}</span>
     </p>
+    <syllabus-statistics :subjects="statistics" :keys="['teacher']" />
 
     <syllabus-list :items="subjects" />
   </syllabus-layout>
@@ -19,6 +20,9 @@ query Field($id: String!) {
       node {
         id
         title
+        teacher{
+          name
+        }
       }
     }
   }
@@ -33,6 +37,14 @@ export default {
     };
   },
   computed: {
+    statistics() {
+      const node = this.$page.field.subjects.node.map(n => ({
+        ...n,
+        teacher: n.teacher.name
+      }));
+
+      return { node };
+    },
     subjects() {
       let items = this.$page.field.subjects.node.map(({ title, id }) => {
         return {

@@ -57,7 +57,7 @@ module.exports = function (api) {
 
         contentType.addNode({
           id: id.toString(),
-          name: key || "unknown",
+          name: key || "不明",
           ...val,
           subjects: {
             totalCount: val.subjects.length,
