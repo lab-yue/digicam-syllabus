@@ -6,7 +6,7 @@
 // To restart press CTRL + C in terminal and run `gridsome develop`
 const syllabus = require("../data/syllabus.json");
 
-module.exports = function(api) {
+module.exports = function (api) {
   api.loadSource(({ addContentType, createReference, addReference }) => {
     const subjectType = addContentType({
       typeName: "Subject",

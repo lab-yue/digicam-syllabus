@@ -1,6 +1,13 @@
 <template>
   <syllabus-layout class="teacher">
-    <h1 class="syllabus-page-title">{{ $page.teacher.name }}</h1>
+    <h1 class="syllabus-page-title">
+      <a
+        class="teacher-search"
+        :href="`https://www.google.com/search?q=${$page.teacher.name}`"
+        target="_blank"
+      >{{ $page.teacher.name }}</a>
+    </h1>
+
     <p class="teacher-subjects-count">
       講義数
       <span class="syllabus-page-title-count">{{ subjects.length }}</span>
@@ -48,6 +55,9 @@ export default {
 
 <style lang="scss" scoped>
 .teacher {
+  &-search {
+    cursor: help;
+  }
   &-subjects {
     &-count {
       color: $theme-green;
