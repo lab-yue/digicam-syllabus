@@ -20,7 +20,7 @@ query Field($id: String!) {
       node {
         id
         title
-        teacher{
+        teacher {
           name
         }
       }

@@ -5,7 +5,29 @@
 // Changes here require a server restart.
 // To restart press CTRL + C in terminal and run `gridsome develop`
 const syllabus = require("../data/syllabus.json");
+const { createHash } = require("crypto")
 
+const hash = (text) => {
+  return createHash('md5').update(text).digest('hex').slice(0, 8)
+}
+const hashStore = []
+
+const uniqueHash = (text) => {
+
+  let hashString = '';
+  while (true) {
+
+    hashString = hash(text)
+
+    if (hashStore.includes(hashString)) {
+      hashString = hash(hashString)
+    } else {
+      hashStore.push(hashString)
+      break;
+    }
+  }
+  return hashString;
+}
 module.exports = function (api) {
   api.loadSource(({ addContentType, createReference, addReference }) => {
     const subjectType = addContentType({
@@ -21,7 +43,7 @@ module.exports = function (api) {
       route: "/teacher/:id"
     });
 
-    const categoyType = addContentType({
+    const categoryType = addContentType({
       typeName: "Category",
       route: "/category/:id"
     });
@@ -51,12 +73,14 @@ module.exports = function (api) {
       }
     };
 
-    const create = (contentType, collection) => {
-      Object.entries(collection).map(([key, val], id) => {
-        collection[key].id = id.toString();
+    const create = (contentTypeName, contentType, collection) => {
+      Object.entries(collection).map(([key, val]) => {
+        const hash = uniqueHash(`${contentTypeName}:${key}`)
+        console.log({ hash })
+        collection[key].id = hash;
 
         contentType.addNode({
-          id: id.toString(),
+          id: hash,
           name: key || "不明",
           ...val,
           subjects: {
@@ -74,10 +98,10 @@ module.exports = function (api) {
       gather(fields, subject.field, subject.code);
     });
 
-    create(teacherType, teachers);
-    create(categoyType, categories);
-    create(yearType, years);
-    create(fieldType, fields);
+    create('teacher', teacherType, teachers);
+    create('category', categoryType, categories);
+    create('year', yearType, years);
+    create('field', fieldType, fields);
 
     syllabus.data.map(subject => {
       const detail = { ...subject.detail };
