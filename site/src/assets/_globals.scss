@@ -33,9 +33,9 @@ $theme-pale-green: #f2f6f5;
       }
     }
     &-title {
-      margin-top: 1rem;
+      margin-top: 2rem;
       font-size: 2rem;
-      color: $theme-green;
+      color: slategrey;
       text-align: center;
       &-count {
         background-color: slategrey;
@@ -86,9 +86,6 @@ $theme-pale-green: #f2f6f5;
 @media screen and (max-width: 640px) {
   .syllabus {
     &-page {
-      &-title {
-        text-align: left;
-      }
       &-statistics {
         &-wrapper {
           padding: 0;

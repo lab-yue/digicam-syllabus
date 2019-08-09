@@ -14,37 +14,14 @@
 
       <syllabus-button :link="link" v-for="(link,id) in tags" :key="id" />
 
-      <h2 class="syllabus-page-statistics-title subject-margin">Purpose</h2>
-      <p class="subject-txt">{{detail.purpose}}</p>
-
-      <h2 class="syllabus-page-statistics-title subject-margin">Target</h2>
-      <p class="subject-txt">{{detail.target}}</p>
-
-      <h2 class="syllabus-page-statistics-title subject-margin">teachingStyle</h2>
-      <p class="subject-txt">{{detail.teachingStyle}}</p>
-
-      <h2 class="syllabus-page-statistics-title subject-margin">GradePolicy</h2>
-      <p class="subject-txt">{{detail.gradePolicy}}</p>
-
-      <h2 class="syllabus-page-statistics-title subject-margin">FinalTest</h2>
-      <p class="subject-txt">{{detail.finalTest}}</p>
-
-      <h2 class="syllabus-page-statistics-title subject-margin">Message</h2>
-      <p class="subject-txt">{{detail.message}}</p>
-
-      <h2 class="syllabus-page-statistics-title subject-margin">Keywords</h2>
-      <ul>
-        <li v-for="line in detail.keywords" :key="line">
-          <p class="subject-txt">{{line}}</p>
-        </li>
-      </ul>
-
-      <h2 class="syllabus-page-statistics-title subject-margin">Contents</h2>
-      <ul>
-        <li v-for="line in detail.contents" :key="line">
-          <p class="subject-txt">{{line}}</p>
-        </li>
-      </ul>
+      <syllabus-section title="Purpose" :content="detail.purpose" />
+      <syllabus-section title="Target" :content="detail.target" />
+      <syllabus-section title="Teaching Style" :content="detail.teachingStyle" />
+      <syllabus-section title="Grade Policy" :content="detail.gradePolicy" />
+      <syllabus-section title="Final Test" :content="detail.finalTest" />
+      <syllabus-section title="Message" :content="detail.message" />
+      <syllabus-section title="Keywords" :content="detail.keywords" />
+      <syllabus-section title="Contents" :content="detail.contents" />
     </div>
   </syllabus-layout>
 </template>
@@ -154,16 +131,6 @@ export default {
     font-size: 1.6rem;
     color: $theme-grey;
     text-align: center;
-  }
-  &-margin:not(:first-child) {
-    margin-top: 4rem;
-  }
-  &-txt {
-    font-size: 1.2rem;
-    padding-left: 3rem;
-    white-space: pre-line;
-    word-break: break-word;
-    line-height: 1.5;
   }
 }
 @media screen and (max-width: 640px) {

@@ -17,15 +17,12 @@
 </template>
 
 <script>
+const { updateTime } = require("../../../data/update.json");
 export default {
-  computed: {
-    updateTime() {
-      const offset = new Date().getTimezoneOffset() * 60 * 1000;
-      return new Date(Date.now() - offset)
-        .toISOString()
-        .split(".")[0]
-        .replace("T", " ");
-    }
+  data() {
+    return {
+      updateTime
+    };
   }
 };
 </script>
@@ -33,7 +30,7 @@ export default {
 
 <style lang="scss">
 .syllabus-footer {
-  margin-top: 5rem;
+  margin-top: 3rem;
   align-items: center;
   padding: 0 2rem;
   display: flex;
@@ -41,9 +38,9 @@ export default {
   flex-wrap: wrap;
   height: 3rem;
   background-color: #f2f6f5;
+  color: slategrey;
   &-link {
     &-github {
-      color: slategrey;
       text-decoration: underline;
     }
   }

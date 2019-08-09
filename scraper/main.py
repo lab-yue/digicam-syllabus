@@ -1,5 +1,6 @@
 import json
 import requests
+from datetime import datetime
 
 import sanitizer
 from constants import SYLLABUS_URL
@@ -35,6 +36,10 @@ def main():
         page = get_page(s, form_data, i + 2)
 
     print(len(ALL_DATA))
+    save('../data/update.json',
+         {
+             'updateTime': datetime.now().isoformat().split('.')[0].replace('T', ' ')
+         })
 
 
 def get_page(s, form_data, index):
@@ -47,15 +52,15 @@ def get_page(s, form_data, index):
     page_data_list = sanitizer.get_page_data_list(page_text)
     ALL_DATA += page_data_list
 
-    save({'data': ALL_DATA})
+    save('../data/syllabus.json', {'data': ALL_DATA})
     return {
         'viewstate': viewstate,
         'text': page_text,
     }
 
 
-def save(data):
-    with open('../data/syllabus.json', 'w') as s:
+def save(file, data):
+    with open(file, 'w') as s:
         json.dump(data, s, ensure_ascii=False, indent=4)
     print('========= saved! =========')
 
