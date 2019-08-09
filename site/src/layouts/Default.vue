@@ -1,17 +1,20 @@
 <template>
   <div class="layout">
-    <header class="header">
-      <g-link class="header-link" to="/">Syllabus</g-link>
-      <g-link class="header-link" to="/subject">Subject</g-link>
-      <g-link class="header-link" to="/teacher">Teacher</g-link>
-      <g-link class="header-link" to="/category">Category</g-link>
-      <g-link class="header-link" to="/field">Field</g-link>
-    </header>
-    <transition name="fade" appear>
-      <main>
-        <slot />
-      </main>
-    </transition>
+    <div class="top">
+      <header class="header">
+        <g-link class="header-link" to="/">Syllabus</g-link>
+        <g-link class="header-link" to="/subject">Subject</g-link>
+        <g-link class="header-link" to="/teacher">Teacher</g-link>
+        <g-link class="header-link" to="/category">Category</g-link>
+        <g-link class="header-link" to="/field">Field</g-link>
+      </header>
+      <transition name="fade" appear>
+        <main>
+          <slot />
+        </main>
+      </transition>
+    </div>
+    <syllabus-footer />
   </div>
 </template>
 
@@ -24,6 +27,12 @@ query {
 </static-query>
 
 <style lang="scss">
+* {
+  box-sizing: border-box;
+}
+html {
+  height: 100%;
+}
 body {
   font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
@@ -40,9 +49,16 @@ a {
   color: inherit;
 }
 .layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+.top {
   margin: 0 auto;
+  width: 100%;
   padding-left: 20px;
   padding-right: 20px;
+  flex: 1;
 }
 .header {
   margin-top: 1rem;

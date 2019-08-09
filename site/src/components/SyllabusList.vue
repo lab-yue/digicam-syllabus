@@ -30,10 +30,17 @@ export default {
     border-bottom: 1px solid $theme-pale-green;
     a {
       display: block;
-      padding: 2rem 0;
+      padding: 2rem 1rem;
     }
     &:hover {
       background-color: $theme-pale-green;
+    }
+  }
+}
+@media screen and (max-width: 640px) {
+  .syllabus-list {
+    &-wrapper {
+      padding: 0;
     }
   }
 }

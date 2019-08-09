@@ -82,3 +82,23 @@ $theme-pale-green: #f2f6f5;
     }
   }
 }
+
+@media screen and (max-width: 640px) {
+  .syllabus {
+    &-page {
+      &-title {
+        text-align: left;
+      }
+      &-statistics {
+        &-wrapper {
+          padding: 0;
+        }
+      }
+    }
+  }
+  &-list {
+    &-wrapper {
+      padding: 0;
+    }
+  }
+}

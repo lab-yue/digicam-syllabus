@@ -4,6 +4,7 @@
       <a
         class="teacher-search"
         :href="`https://www.google.com/search?q=${$page.teacher.name}`"
+        rel="noopener"
         target="_blank"
       >{{ $page.teacher.name }}</a>
     </h1>

@@ -5,10 +5,13 @@ import DefaultLayout from "~/layouts/Default.vue";
 import SyllabusButton from "~/components/SyllabusButton.vue";
 import SyllabusList from "~/components/SyllabusList.vue";
 import SyllabusStatistics from "~/components/SyllabusStatistics.vue";
+import SyllabusFooter from "~/components/SyllabusFooter.vue";
 
 export default function (Vue, { router, head, isClient }) {
   Vue.component("syllabus-layout", DefaultLayout);
   Vue.component("syllabus-button", SyllabusButton);
   Vue.component("syllabus-list", SyllabusList);
   Vue.component("syllabus-statistics", SyllabusStatistics);
+
+  Vue.component("syllabus-footer", SyllabusFooter);
 }
