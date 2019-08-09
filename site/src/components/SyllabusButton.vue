@@ -1,9 +1,14 @@
 <template>
-  <span class="syllabus-button">
+  <span
+    :class="[
+      'syllabus-button',
+      {'syllabus-button-not-allowed': link.url === '#'}
+    ]"
+  >
     <g-link
       :class="[
         'syllabus-button-link',
-        { 'syllabus-button-link--padding': link.extra }
+        { 'syllabus-button-link--padding': link.extra },
       ]"
       :to="link.url"
     >
@@ -50,6 +55,14 @@ export default {
     width: 2rem;
     text-align: center;
     z-index: 5;
+  }
+  &-not-allowed {
+    background-color: transparent;
+    border: 2px solid #c8dad3;
+    cursor: unset;
+    a {
+      cursor: unset;
+    }
   }
 }
 </style>

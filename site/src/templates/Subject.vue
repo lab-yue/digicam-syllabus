@@ -2,9 +2,9 @@
   <syllabus-layout class="subject">
     <h1 class="syllabus-page-title">{{ $page.subject.title }}</h1>
     <p class="subject-teacher">
-      <g-link :to="`/teacher/${this.$page.subject.teacher.id}`">
+      <g-link :to="`/teacher/${$page.subject.teacher.id}`">
         {{
-        this.$page.subject.teacher.name
+        $page.subject.teacher.name
         }}
       </g-link>
     </p>
@@ -58,8 +58,14 @@ query Subject($id: String!) {
     time
     location
     type
-    category
-    field
+    category{
+      id
+      name
+    }
+    field{
+      name
+      id
+    }
     year {
       name
     }
@@ -107,15 +113,18 @@ export default {
           url: `#`
         },
         {
-          name: subject.category,
-          url: `#`
+          name: subject.category.name,
+          url: `/category/${subject.category.id}`
         },
         {
-          name: subject.field,
-          url: `#`
+          name: subject.field.name,
+          url: `/field/${subject.field.id}`
         },
         {
-          name: subject.year.name + "年",
+          name:
+            subject.year.name === "不明"
+              ? "年: 不明"
+              : subject.year.name + "年",
           url: `#`
         },
         {

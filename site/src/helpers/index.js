@@ -9,22 +9,30 @@ export function getListCount(list) {
 export function collectSubjectInfo(subjects, fieldList) {
 
   let fieldMap = Object.fromEntries(fieldList.map(field => [field, {}]))
+  let fieldCount = Object.fromEntries(fieldList.map(field => [field, {}]))
 
   let returnMap = {}
   subjects.node.map((node) => {
     fieldList.map(field => {
-      fieldMap[field][node[field] || '不明'] = (fieldMap[field][node[field]] || 0) + 1;
+      const name = node[field].name || '不明';
+      const count = (fieldCount[field][node[field].name] || 0) + 1;
+      fieldCount[field][node[field].name] = count
+      fieldMap[field][name] = {
+        name,
+        count,
+        id: node[field].id
+      }
     })
   })
 
-  Object.entries(fieldMap).map(([field, fieldCount]) => {
+  Object.entries(fieldMap).map(([field, fieldInfo]) => {
     returnMap[field] = []
-    Object.keys(fieldCount).map((key, id) => {
+    Object.values(fieldInfo).map((val) => {
+
       returnMap[field].push({
-        id,
-        extra: fieldCount[key],
-        name: key,
-        url: `#`
+        extra: val.count,
+        name: val.name || '不明',
+        url: `/${field}/${val.id}`
       })
     }
     )

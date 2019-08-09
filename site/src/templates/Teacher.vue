@@ -13,7 +13,7 @@
       <span class="syllabus-page-title-count">{{ subjects.length }}</span>
     </p>
 
-    <syllabus-statistics :subjects="this.$page.teacher.subjects" :keys="['field','category']" />
+    <syllabus-statistics :subjects="$page.teacher.subjects" :keys="['field','category']" />
 
     <syllabus-list :items="subjects" />
   </syllabus-layout>
@@ -27,8 +27,14 @@ query Teacher($id: String!) {
       node {
         id
         title
-        field
-        category
+        field{
+          id
+          name
+        }
+        category{
+          name
+          id
+        }
       }
     }
   }

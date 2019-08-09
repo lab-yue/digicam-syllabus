@@ -6,7 +6,7 @@
       <span class="syllabus-page-title-count">{{ subjects.length }}</span>
     </p>
 
-    <syllabus-statistics :subjects="statistics" :keys="['teacher']" />
+    <syllabus-statistics :subjects="$page.category.subjects" :keys="['teacher']" />
 
     <syllabus-list :items="subjects" />
   </syllabus-layout>
@@ -21,6 +21,7 @@ query Category($id: String!) {
         id
         title
         teacher {
+          id
           name
         }
       }
@@ -37,14 +38,6 @@ export default {
     };
   },
   computed: {
-    statistics() {
-      const node = this.$page.category.subjects.node.map(n => ({
-        ...n,
-        teacher: n.teacher.name
-      }));
-
-      return { node };
-    },
     subjects() {
       let items = this.$page.category.subjects.node.map(({ title, id }) => {
         return {

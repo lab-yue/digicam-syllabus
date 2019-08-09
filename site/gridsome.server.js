@@ -10,7 +10,7 @@ const { createHash } = require("crypto")
 const hash = (text) => {
   return createHash('md5').update(text).digest('hex').slice(0, 8)
 }
-const hashStore = []
+const hashStore = {}
 
 const uniqueHash = (text) => {
 
@@ -19,10 +19,11 @@ const uniqueHash = (text) => {
 
     hashString = hash(text)
 
-    if (hashStore.includes(hashString)) {
+    if (hashString in hashStore) {
       hashString = hash(hashString)
     } else {
-      hashStore.push(hashString)
+      hashStore[text] = hashString
+      hashStore[hashString] = text
       break;
     }
   }
@@ -76,7 +77,6 @@ module.exports = function (api) {
     const create = (contentTypeName, contentType, collection) => {
       Object.entries(collection).map(([key, val]) => {
         const hash = uniqueHash(`${contentTypeName}:${key}`)
-        console.log({ hash })
         collection[key].id = hash;
 
         contentType.addNode({
@@ -106,12 +106,23 @@ module.exports = function (api) {
     syllabus.data.map(subject => {
       const detail = { ...subject.detail };
       delete subject.detail;
+
       const detailNode = detailType.addNode({
         ...detail,
         path: `subject/${subject.code}/detail`
       });
+
+      const subjectRef = Object.fromEntries(
+        ['teacher', 'category', 'year', 'field'].map(typeName => {
+
+          const hash = hashStore[`${typeName}:${subject[typeName]}`];
+          const typeNameUpper = typeName.slice(0, 1).toUpperCase() + typeName.slice(1);
+          return [typeName, createReference(typeNameUpper, hash)]
+        }))
+
       subjectType.addNode({
         ...subject,
+        ...subjectRef,
         id: subject.code,
         detail: createReference(detailNode),
         teacher: createReference("Teacher", teachers[subject.teacher].id),
