@@ -33,6 +33,7 @@ export default {
 
 <style lang="scss">
 .syllabus-footer {
+  margin-top: 5rem;
   align-items: center;
   padding: 0 2rem;
   display: flex;

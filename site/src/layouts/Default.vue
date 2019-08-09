@@ -39,6 +39,7 @@ body {
   margin: 0;
   padding: 0;
   line-height: 1.5;
+  height: 100%;
 }
 ul {
   padding: 0;
