@@ -1,13 +1,7 @@
 <template>
   <div class="layout">
     <div class="top">
-      <header class="header">
-        <g-link class="header-link" to="/">Syllabus</g-link>
-        <g-link class="header-link" to="/subject">Subject</g-link>
-        <g-link class="header-link" to="/teacher">Teacher</g-link>
-        <g-link class="header-link" to="/category">Category</g-link>
-        <g-link class="header-link" to="/field">Field</g-link>
-      </header>
+      <syllabus-header />
       <transition name="fade" appear>
         <main>
           <slot />
@@ -25,6 +19,19 @@ query {
   }
 }
 </static-query>
+
+<script>
+import SyllabusFooter from "../components/SyllabusFooter";
+import SyllabusHeader from "../components/SyllabusHeader";
+
+export default {
+  components: {
+    SyllabusHeader,
+    SyllabusFooter
+  }
+};
+</script>
+
 
 <style lang="scss">
 * {
@@ -62,17 +69,7 @@ a {
   padding-right: 20px;
   flex: 1;
 }
-.header {
-  margin-top: 1rem;
-  &-link {
-    color: $theme-green;
-    font-size: 1.2rem;
-    &:not(:last-child):after {
-      content: " / ";
-      color: $theme-light-green;
-    }
-  }
-}
+
 .fade-enter-active {
   transition: opacity 0.5s;
 }
