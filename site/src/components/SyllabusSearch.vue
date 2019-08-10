@@ -12,7 +12,7 @@
         <router-link :to="result.url">
           <p class="syllabus-search-result-item">
             <span class="syllabus-search-result-title">{{result.title}}</span>
-            <span v-html="result.text"></span>
+            <span class="syllabus-search-result-content" v-html="result.text"></span>
           </p>
         </router-link>
       </li>
@@ -74,6 +74,7 @@ export default {
   text-align: right;
   position: relative;
   &-input {
+    font-size: 1.2rem;
     width: 30%;
     transition: 0.3s all ease-in-out;
     border: 0;
@@ -120,6 +121,10 @@ export default {
       margin-right: 5px;
       padding-right: 5px;
       border-right: 1px solid slategrey;
+    }
+    &-content {
+      vertical-align: super;
+      display: inline-block;
     }
   }
 }
