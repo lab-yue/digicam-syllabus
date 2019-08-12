@@ -54,12 +54,16 @@ export default {
         .splice(0, 15)
         .map(item => {
           const text = item.text
-            .substring(item.index - 15, item.index + 15)
+            .substring(item.index - 10, item.index + item.text.length + 10)
             .replace(
               new RegExp(`(${searchText})`, "i"),
               `<span class="syllabus-search-highlight">$1</span>`
             );
-          return { text, title: item.title, url: `/${item.type}/${item.id}` };
+          return {
+            text: `...${text}...`,
+            title: item.title,
+            url: `/${item.type}/${item.id}`
+          };
         });
       return result;
     }
@@ -70,7 +74,7 @@ export default {
 
 <style lang="scss">
 .syllabus-search {
-  width: 60%;
+  width: 50%;
   text-align: right;
   position: relative;
   &-input {

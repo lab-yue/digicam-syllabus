@@ -5,6 +5,7 @@
 // Changes here require a server restart.
 // To restart press CTRL + C in terminal and run `gridsome develop`
 const syllabus = require("../data/syllabus.json");
+const search = require("../data/search.json");
 const { createHash } = require("crypto")
 
 const hash = (text) => {
@@ -29,6 +30,9 @@ const uniqueHash = (text) => {
   }
   return hashString;
 }
+
+const upper = (text) => text.slice(0, 1).toUpperCase() + text.slice(1);
+
 module.exports = function (api) {
   api.loadSource(({ addContentType, createReference, addReference }) => {
     const subjectType = addContentType({
@@ -116,7 +120,7 @@ module.exports = function (api) {
         ['teacher', 'category', 'year', 'field'].map(typeName => {
 
           const hash = hashStore[`${typeName}:${subject[typeName]}`];
-          const typeNameUpper = typeName.slice(0, 1).toUpperCase() + typeName.slice(1);
+          const typeNameUpper = upper(typeName);
           return [typeName, createReference(typeNameUpper, hash)]
         }))
 
@@ -130,6 +134,46 @@ module.exports = function (api) {
         year: createReference("Year", years[subject.year].id)
       });
     });
+
+    const emailType = addContentType({
+      typeName: "Email"
+    });
+    const emailMap = {}
+
+    search.data.map(item => {
+      /**
+        * @see https://stackoverflow.com/a/1373724
+        */
+      const emailMatched = [...item.text.matchAll(
+        /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi)].map(match => match[1])
+
+      const subject = syllabus.data.filter(subject => item.id === subject.code)[0]
+
+      if (emailMatched.length) {
+        for (let email of emailMatched) {
+          if (!Array.isArray(emailMap[subject.teacher])) {
+            emailMap[subject.teacher] = []
+          }
+          if (!emailMap[subject.teacher].includes(email)) {
+            emailMap[subject.teacher].push({
+              link: email,
+              subject: createReference('Subject', subject.code)
+            })
+          }
+        }
+      }
+    })
+
+    Object.entries(emailMap).map(([teacher, item]) => {
+      const teacherID = hashStore[`teacher:${teacher}`];
+
+      emailType.addNode({
+        id: hash(`email:${teacher}`),
+        teacher: createReference('Teacher', teacherID),
+        addresses: item
+      });
+    })
+
   });
 
   //api.createPages(({ createPage }) => {

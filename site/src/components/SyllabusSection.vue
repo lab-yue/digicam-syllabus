@@ -2,10 +2,10 @@
   <section class="subject-section" v-if="isNotEmpty">
     <h2 class="syllabus-page-statistics-title subject-margin">{{title}}</h2>
     <div class="subject-section-txt">
-      <p v-if="typeof content === 'string'" class="subject-txt" v-html="eval(content)"></p>
+      <p v-if="typeof content === 'string'" class="syllabus-txt" v-html="eval(content)"></p>
       <ul v-else-if="Array.isArray(content)">
         <li v-for="line in content" :key="line">
-          <p class="subject-txt" v-html="eval(line)"></p>
+          <p class="syllabus-txt" v-html="eval(line)"></p>
         </li>
       </ul>
     </div>
@@ -34,7 +34,7 @@ export default {
          * @see https://stackoverflow.com/a/1373724
          */
         /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi,
-        '<a class="subject-txt-link" href="mailto:$1">$1</a>'
+        '<a class="syllabus-txt-link" href="mailto:$1">$1</a>'
       );
     },
     evalURL(txt) {
@@ -43,7 +43,7 @@ export default {
          * @see https://stackoverflow.com/a/17773849
          */
         /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/g,
-        `<a class="subject-txt-link" target="_blank" href="$1" ref="noreferrer noopener">$1</a>`
+        `<a class="syllabus-txt-link" target="_blank" href="$1" ref="noreferrer noopener">$1</a>`
       );
     }
   }
@@ -63,16 +63,8 @@ export default {
       background-color: #f2f6f5;
       font-size: 1.2rem;
     }
-  }
-  &-txt {
-    margin: 0;
-    white-space: pre-line;
-    word-break: break-word;
-    line-height: 1.5;
-    &-link {
+    .syllabus-txt-link {
       color: deeppink;
-      text-decoration: underline;
-      word-break: break-all;
     }
   }
 }

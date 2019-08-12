@@ -4,6 +4,17 @@ $theme-light-green: #c8dad3;
 $theme-pale-green: #f2f6f5;
 
 .syllabus {
+  &-txt {
+    margin: 0;
+    white-space: pre-line;
+    word-break: break-word;
+    line-height: 1.5;
+    &-link {
+      color: inherit;
+      text-decoration: underline;
+      word-break: break-all;
+    }
+  }
   &-page {
     &-statistics {
       &-wrapper {
@@ -44,15 +55,15 @@ $theme-pale-green: #f2f6f5;
     font-size: 1.4rem;
     text-align: center;
     border: 0;
-    border-bottom: 2px solid #ccc;
-    margin: 3rem auto;
+    border-bottom: 1px solid #c8dad3;
+    margin: 2rem auto;
     display: block;
     &::placeholder {
       color: #ccc;
     }
     &:focus {
       outline: none;
-      border-bottom: 2px solid $theme-green;
+      border-bottom: 1px solid $theme-green;
     }
   }
 

@@ -6,6 +6,7 @@
       <g-link class="header-link" to="/teacher">Teacher</g-link>
       <g-link class="header-link" to="/category">Category</g-link>
       <g-link class="header-link" to="/field">Field</g-link>
+      <g-link class="header-link" to="/email">Email</g-link>
     </nav>
     <syllabus-search />
   </header>

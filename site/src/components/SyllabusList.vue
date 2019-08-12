@@ -22,15 +22,18 @@ export default {
 <style lang="scss">
 .syllabus-list {
   &-wrapper {
-    padding: 2rem;
+    padding: 0 2rem;
   }
   &-item {
     transition: 0.3s all ease-in-out;
     font-size: 1.2rem;
     border-bottom: 1px solid $theme-pale-green;
+    display: flex;
+    justify-content: space-between;
     a {
       display: block;
       padding: 1rem;
+      width: 100%;
     }
     &:hover {
       background-color: $theme-pale-green;
