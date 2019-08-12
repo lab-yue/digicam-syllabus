@@ -5,7 +5,7 @@
       <span class="syllabus-page-title-count">{{ $page.allEmail.totalCount }}</span>
       Records
     </h2>
-    <input data-v-5afe3424 placeholder="名前検索" class="syllabus-input" v-model="searchText" />
+    <input placeholder="名前検索" class="syllabus-input" v-model="searchText" />
     <div class="email-simplify-wrapper">
       <label class="email-simplify-label" for="simplify">simplify</label>
       <input type="checkbox" name="simplify" v-model="simplify" />
