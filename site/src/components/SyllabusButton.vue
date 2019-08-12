@@ -58,10 +58,12 @@ export default {
   }
   &-not-allowed {
     background-color: transparent;
-    border: 2px solid #c8dad3;
     cursor: unset;
     a {
       cursor: unset;
+    }
+    &:hover {
+      background-color: transparent;
     }
   }
 }

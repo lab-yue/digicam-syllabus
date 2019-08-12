@@ -2,10 +2,10 @@
   <section class="subject-section" v-if="isNotEmpty">
     <h2 class="syllabus-page-statistics-title subject-margin">{{title}}</h2>
     <div class="subject-section-txt">
-      <p v-if="typeof content === 'string'" class="subject-txt">{{content}}</p>
+      <p v-if="typeof content === 'string'" class="subject-txt" v-html="eval(content)"></p>
       <ul v-else-if="Array.isArray(content)">
         <li v-for="line in content" :key="line">
-          <p class="subject-txt">{{line}}</p>
+          <p class="subject-txt" v-html="eval(line)"></p>
         </li>
       </ul>
     </div>
@@ -23,11 +23,34 @@ export default {
         return this.content;
       }
     }
+  },
+  methods: {
+    eval(txt) {
+      return this.evalEmail(this.evalURL(txt.trim()));
+    },
+    evalEmail(txt) {
+      return txt.replace(
+        /**
+         * @see https://stackoverflow.com/a/1373724
+         */
+        /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi,
+        '<a class="subject-txt-link" href="mailto:$1">$1</a>'
+      );
+    },
+    evalURL(txt) {
+      return txt.replace(
+        /**
+         * @see https://stackoverflow.com/a/17773849
+         */
+        /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/g,
+        `<a class="subject-txt-link" target="_blank" href="$1" ref="noreferrer noopener">$1</a>`
+      );
+    }
   }
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .subject {
   &-margin:not(:first-child) {
     margin-top: 4rem;
@@ -46,6 +69,11 @@ export default {
     white-space: pre-line;
     word-break: break-word;
     line-height: 1.5;
+    &-link {
+      color: deeppink;
+      text-decoration: underline;
+      word-break: break-all;
+    }
   }
 }
 

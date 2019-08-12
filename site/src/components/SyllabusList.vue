@@ -30,7 +30,7 @@ export default {
     border-bottom: 1px solid $theme-pale-green;
     a {
       display: block;
-      padding: 2rem 1rem;
+      padding: 1rem;
     }
     &:hover {
       background-color: $theme-pale-green;

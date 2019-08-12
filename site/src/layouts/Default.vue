@@ -2,8 +2,8 @@
   <div class="layout">
     <div class="top">
       <syllabus-header />
-      <transition name="fade" appear>
-        <main>
+      <transition name="fade" mode="out-in" appear>
+        <main class="main">
           <slot />
         </main>
       </transition>
@@ -68,13 +68,21 @@ a {
   padding-left: 20px;
   padding-right: 20px;
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .fade-enter-active {
-  transition: opacity 0.5s;
+  transition: all 0.5s;
 }
-
 .fade-enter {
   opacity: 0;
+  transform: translateY(-3px);
 }
 </style>
