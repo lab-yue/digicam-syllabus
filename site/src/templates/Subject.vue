@@ -35,11 +35,11 @@ query Subject($id: String!) {
     time
     location
     type
-    category{
+    category {
       id
       name
     }
-    field{
+    field {
       name
       id
     }

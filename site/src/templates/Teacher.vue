@@ -28,11 +28,11 @@ query Teacher($id: String!) {
       node {
         id
         title
-        field{
+        field {
           id
           name
         }
-        category{
+        category {
           name
           id
         }
