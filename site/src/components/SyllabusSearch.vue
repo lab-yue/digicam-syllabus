@@ -54,7 +54,10 @@ export default {
         .splice(0, 15)
         .map(item => {
           const text = item.text
-            .substring(item.index - 10, item.index + item.text.length + 10)
+            .substring(
+              item.index - 10,
+              item.index + this.searchText.length + 15
+            )
             .replace(
               new RegExp(`(${searchText})`, "i"),
               `<span class="syllabus-search-highlight">$1</span>`
