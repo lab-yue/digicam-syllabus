@@ -59,6 +59,21 @@ class TestSanitizer(unittest.TestCase):
 
         pass
 
+    def test_get_syllabus_count(self):
+
+        __mock_text = '''
+            <td class="text-main">
+                <span class="text-bold">該当件数
+	            <span id="lblTotalCnt">961</span>件 (
+	            <span id="lblCnt">1－100</span>件目を表示)</span>
+            </td>
+        '''
+        syllabus_count = sanitizer.get_syllabus_count(__mock_text)
+
+        __expect = '961'
+
+        assert __expect == syllabus_count
+
 
 if __name__ == '__main__':
     unittest.main()

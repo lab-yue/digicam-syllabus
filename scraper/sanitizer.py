@@ -95,3 +95,9 @@ def get_detail_data(text):
         'message': "\n".join(message),
         'contents': [content.text_content().strip() for content in contents]
     }
+
+
+def get_syllabus_count(page_txt):
+    dom = html.fromstring(page_txt)
+    xpath = f"//span[@id='lblTotalCnt']/text()"
+    return dom.xpath(xpath)[0]
