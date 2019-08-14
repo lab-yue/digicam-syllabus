@@ -59,7 +59,7 @@ export default {
   data() {
     return {
       searchText: "",
-      simplify: true
+      simplify: false
     };
   },
   computed: {
