@@ -16,7 +16,7 @@
     "style-resources-loader": "^1.2.1"
   },
   "devDependencies": {
-    "eslint": "^6.1.0",
+    "eslint": "^6.2.2",
     "eslint-plugin-gridsome": "^1.2.6"
   }
 }
