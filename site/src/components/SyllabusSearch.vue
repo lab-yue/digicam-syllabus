@@ -16,6 +16,9 @@
           </p>
         </router-link>
       </li>
+      <li class="syllabus-search-extra" v-if="extra">
+        <router-link class="syllabus-search-extra-link" :to="`/search?q=${searchText}`">~ more ~</router-link>
+      </li>
     </ul>
   </div>
 </template>
@@ -27,7 +30,8 @@ export default {
   data() {
     return {
       searchText: "",
-      isOpen: false
+      isOpen: false,
+      extra: false
     };
   },
   methods: {
@@ -45,29 +49,28 @@ export default {
       }
 
       const searchText = this.searchText.toLowerCase();
-      const result = data
-        .filter(item => {
-          item.index = item.text.toLowerCase().indexOf(searchText);
+      let result = data.filter(item => {
+        item.index = item.text.toLowerCase().indexOf(searchText);
 
-          return item.index !== -1;
-        })
-        .splice(0, 15)
-        .map(item => {
-          const text = item.text
-            .substring(
-              item.index - 10,
-              item.index + this.searchText.length + 15
-            )
-            .replace(
-              new RegExp(`(${searchText})`, "i"),
-              `<span class="syllabus-search-highlight">$1</span>`
-            );
-          return {
-            text: `...${text}...`,
-            title: item.title,
-            url: `/${item.type}/${item.id}`
-          };
-        });
+        return item.index !== -1;
+      });
+
+      this.extra = result.length > 15;
+
+      result = result.splice(0, 15).map(item => {
+        const text = item.text
+          .substring(item.index - 10, item.index + this.searchText.length + 15)
+          .replace(
+            new RegExp(`(${searchText})`, "i"),
+            `<span class="syllabus-search-highlight">$1</span>`
+          );
+        return {
+          text: `...${text}...`,
+          title: item.title,
+          url: `/${item.type}/${item.id}`
+        };
+      });
+
       return result;
     }
   }
@@ -94,6 +97,7 @@ export default {
   }
   &-highlight {
     background-color: yellow;
+    color: #000;
   }
   &-result {
     background-color: #fff;
@@ -131,7 +135,18 @@ export default {
     }
     &-content {
       vertical-align: super;
-      display: inline-block;
+      // display: inline-block;
+    }
+  }
+  &-extra {
+    transition: 0.3s all ease-in-out;
+    text-align: center;
+    background-color: $theme-pale-green;
+    &:hover {
+      background-color: $theme-light-green;
+    }
+    &-link {
+      display: block;
     }
   }
 }
