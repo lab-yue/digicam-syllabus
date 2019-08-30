@@ -16,22 +16,22 @@
           </p>
         </router-link>
       </li>
-      <li class="syllabus-search-extra" v-if="extra">
-        <router-link class="syllabus-search-extra-link" :to="`/search?q=${searchText}`">~ more ~</router-link>
+      <li class="syllabus-search-more" v-if="more">
+        <router-link class="syllabus-search-more-link" :to="`/search?q=${searchText}`">~ more ~</router-link>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-const { data } = require("../../../data/search.json");
+//const { data } = require("../../../data/search.json");
 
 export default {
   data() {
     return {
       searchText: "",
       isOpen: false,
-      extra: false
+      more: false
     };
   },
   methods: {
@@ -43,31 +43,29 @@ export default {
     }
   },
   computed: {
-    resultList() {
+    async resultList() {
       if (!this.searchText) {
         return [];
       }
 
       const searchText = this.searchText.toLowerCase();
-      let result = data.filter(item => {
-        item.index = item.text.toLowerCase().indexOf(searchText);
+      let response = await fetch(`/.netlify/functions/search?q=${searchText}`);
+      if (!response) {
+        return [];
+      }
 
-        return item.index !== -1;
-      });
+      let { more, data } = await response.json();
 
-      this.extra = result.length > 15;
+      this.more = more;
 
-      result = result.splice(0, 15).map(item => {
-        const text = item.text
-          .substring(item.index - 10, item.index + this.searchText.length + 15)
-          .replace(
-            new RegExp(`(${searchText})`, "i"),
-            `<span class="syllabus-search-highlight">$1</span>`
-          );
+      result = data.splice(0, 15).map(item => {
+        const text = item.text.replace(
+          new RegExp(`(${searchText})`, "i"),
+          `<span class="syllabus-search-highlight">$1</span>`
+        );
         return {
-          text: `...${text}...`,
-          title: item.title,
-          url: `/${item.type}/${item.id}`
+          ...item,
+          text: `...${text}...`
         };
       });
 
@@ -138,7 +136,7 @@ export default {
       // display: inline-block;
     }
   }
-  &-extra {
+  &-more {
     transition: 0.3s all ease-in-out;
     text-align: center;
     background-color: $theme-pale-green;

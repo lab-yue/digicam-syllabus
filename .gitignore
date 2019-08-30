@@ -7,3 +7,12 @@ log
 
 # mac
 .DS_Store
+
+# bin
+netlifyctl
+
+# dist
+functions-dist
+
+# node_modules
+node_modules
