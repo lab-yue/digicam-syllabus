@@ -1,4 +1,4 @@
-const { data } = require("../data/search.json");
+const { data } = require("./search.json");
 
 exports.handler = function (event, context, callback) {
   const params = event.queryStringParameters;
