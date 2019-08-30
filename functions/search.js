@@ -1,10 +1,6 @@
 const { data } = require("../data/search.json");
 
-export const handler = (
-  event,
-  context,
-  callback
-) => {
+exports.handler = function (event, context, callback) {
   const params = event.queryStringParameters;
   const { q: searchText } = params;
 
