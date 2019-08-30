@@ -58,7 +58,7 @@ export default {
 
       this.more = more;
 
-      result = data.splice(0, 15).map(item => {
+      const result = data.map(item => {
         const text = item.text.replace(
           new RegExp(`(${searchText})`, "i"),
           `<span class="syllabus-search-highlight">$1</span>`
