@@ -12,4 +12,6 @@
 
   # Default build command.
   command = "yarn gen"
-  functions = "functions-dist/"
+
+  # Netlify functions
+  functions = "functions/"
