@@ -2,6 +2,7 @@
   <div class="syllabus-search">
     <input
       @focus="open"
+      @input="fetchResultList"
       class="syllabus-search-input"
       type="text"
       v-model="searchText"
@@ -17,7 +18,7 @@
         </router-link>
       </li>
       <li class="syllabus-search-more" v-if="more">
-        <router-link class="syllabus-search-more-link" :to="`/search?q=${searchText}`">~ more ~</router-link>
+        <g-link class="syllabus-search-more-link" :to="`/search?q=${searchText}`">~ more ~</g-link>
       </li>
     </ul>
   </div>
@@ -31,7 +32,8 @@ export default {
     return {
       searchText: "",
       isOpen: false,
-      more: false
+      more: false,
+      resultList: []
     };
   },
   methods: {
@@ -40,18 +42,16 @@ export default {
     },
     close() {
       this.isOpen = false;
-    }
-  },
-  computed: {
-    async resultList() {
+    },
+    async fetchResultList() {
       if (!this.searchText) {
-        return [];
+        return;
       }
 
       const searchText = this.searchText.toLowerCase();
       let response = await fetch(`/.netlify/functions/search?q=${searchText}`);
       if (!response) {
-        return [];
+        return;
       }
 
       let { more, data } = await response.json();
@@ -65,11 +65,10 @@ export default {
         );
         return {
           ...item,
-          text: `...${text}...`
+          text
         };
       });
-
-      return result;
+      this.resultList = result;
     }
   }
 };
