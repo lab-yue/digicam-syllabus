@@ -147,9 +147,9 @@ module.exports = function (api) {
       const emailMatched = [...item.text.matchAll(
         /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi)].map(match => match[1])
 
-      const subject = syllabus.data.filter(subject => item.id === subject.code)[0]
+      const subject = syllabus.data.find(subject => item.id === subject.code)
 
-      if (emailMatched.length) {
+      if (subject && emailMatched.length) {
         for (let email of emailMatched) {
           if (!Array.isArray(emailMap[subject.teacher])) {
             emailMap[subject.teacher] = []
