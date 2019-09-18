@@ -7,11 +7,29 @@ import SyllabusList from "~/components/SyllabusList.vue";
 import SyllabusStatistics from "~/components/SyllabusStatistics.vue";
 import SyllabusSection from "~/components/SyllabusSection.vue";
 
-export default function (Vue, { router, head, isClient }) {
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
+import '@mdi/font/css/materialdesignicons.css' // Ensure you are using css-loader
+
+export default function (Vue, { router, isClient, appOptions, head }) {
   Vue.component("syllabus-layout", DefaultLayout);
   Vue.component("syllabus-button", SyllabusButton);
   Vue.component("syllabus-list", SyllabusList);
   Vue.component("syllabus-statistics", SyllabusStatistics);
   Vue.component("syllabus-section", SyllabusSection);
+
+  head.link.push({
+    rel: 'stylesheet',
+    href: 'https://fonts.googleapis.com/icon?family=Material+Icons'
+  })
+
+  const opts = {
+    icons: {
+      iconfont: 'mdi', // default - only for display purposes
+    },
+  } //opts includes, vuetify themes, icons, etc.
+  Vue.use(Vuetify)
+
+  appOptions.vuetify = new Vuetify(opts);
+
 }
-1
