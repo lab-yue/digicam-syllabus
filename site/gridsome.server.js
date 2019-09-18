@@ -8,6 +8,8 @@ const syllabus = require("../data/syllabus.json");
 const search = require("../data/search.json");
 const { createHash } = require("crypto")
 
+const nodeExternals = require('webpack-node-externals')
+
 const hash = (text) => {
   return createHash('md5').update(text).digest('hex').slice(0, 8)
 }
@@ -34,6 +36,17 @@ const uniqueHash = (text) => {
 const upper = (text) => text.slice(0, 1).toUpperCase() + text.slice(1);
 
 module.exports = function (api) {
+
+  api.chainWebpack((config, { isServer }) => {
+    if (isServer) {
+      config.externals([
+        nodeExternals({
+          whitelist: [/^vuetify/]
+        })
+      ])
+    }
+  })
+
   api.loadSource(({ addContentType, createReference, addReference }) => {
     const subjectType = addContentType({
       typeName: "Subject",
