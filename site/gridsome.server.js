@@ -130,7 +130,7 @@ module.exports = function (api) {
         id: subject.code,
         detail: createReference(detailNode),
         teacher: createReference("Teacher", teachers[subject.teacher].id),
-        categories: createReference("Categoy", categories[subject.category].id),
+        categories: createReference("Category", categories[subject.category].id),
         year: createReference("Year", years[subject.year].id)
       });
     });
