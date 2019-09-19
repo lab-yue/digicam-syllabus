@@ -14,7 +14,7 @@ def check_len():
     print('=========  check! =========')
     local_len = get_local_len()
     _, page, _ = setup(skip_page_data=True)
-    web_len = sanitizer.get_syllabus_count(page['text'])
+    web_len = int(sanitizer.get_syllabus_count(page['text']))
     is_equal = local_len == web_len
     message = 'same.' if is_equal else 'should update.'
     print(f'''
