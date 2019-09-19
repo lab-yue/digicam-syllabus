@@ -34,33 +34,28 @@ const uniqueHash = (text) => {
 const upper = (text) => text.slice(0, 1).toUpperCase() + text.slice(1);
 
 module.exports = function (api) {
-  api.loadSource(({ addContentType, createReference, addReference }) => {
-    const subjectType = addContentType({
-      typeName: "Subject",
-      route: "/subject/:id"
+  api.loadSource(({ addCollection, createReference, addReference }) => {
+    const subjectType = addCollection({
+      typeName: "Subject"
     });
-    const detailType = addContentType({
+    const detailType = addCollection({
       typeName: "Detail"
     });
 
-    const teacherType = addContentType({
-      typeName: "Teacher",
-      route: "/teacher/:id"
+    const teacherType = addCollection({
+      typeName: "Teacher"
     });
 
-    const categoryType = addContentType({
-      typeName: "Category",
-      route: "/category/:id"
+    const categoryType = addCollection({
+      typeName: "Category"
     });
 
-    const fieldType = addContentType({
-      typeName: "Field",
-      route: "/field/:id"
+    const fieldType = addCollection({
+      typeName: "Field"
     });
 
-    const yearType = addContentType({
-      typeName: "Year",
-      route: "/year/:id"
+    const yearType = addCollection({
+      typeName: "Year"
     });
 
     const teachers = {};
@@ -135,7 +130,7 @@ module.exports = function (api) {
       });
     });
 
-    const emailType = addContentType({
+    const emailType = addCollection({
       typeName: "Email"
     });
     const emailMap = {}

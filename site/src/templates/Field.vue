@@ -12,7 +12,7 @@
 </template>
 
 <page-query>
-query Field($id: String!) {
+query Field($id: ID!) {
   field: field(id: $id) {
     name
     subjects {

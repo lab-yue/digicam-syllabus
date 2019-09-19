@@ -13,7 +13,7 @@
 </template>
 
 <page-query>
-query Category($id: String!) {
+query Category($id: ID!) {
   category: category(id: $id) {
     name
     subjects {

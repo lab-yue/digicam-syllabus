@@ -16,6 +16,13 @@ module.exports = {
   siteName: "Syllabus",
   siteDescription: "Better Syllabus for DHU",
   extends: ["prettier", "plugin:gridsome/recommended"],
+  templates: {
+    Subject: "/subject/:id",
+    Teacher: "/teacher/:id",
+    Category: "/category/:id",
+    Field: "/field/:id",
+    Year: "/year/:id"
+  },
   chainWebpack(config) {
     const types = ["vue-modules", "vue", "normal-modules", "normal"];
 

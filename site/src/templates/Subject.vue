@@ -27,7 +27,7 @@
 </template>
 
 <page-query>
-query Subject($id: String!) {
+query Subject($id: ID!) {
   subject: subject(id: $id) {
     title
     subtitle

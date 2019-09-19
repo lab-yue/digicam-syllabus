@@ -21,7 +21,7 @@
 </template>
 
 <page-query>
-query Teacher($id: String!) {
+query Teacher($id: ID!) {
   teacher: teacher(id: $id) {
     name
     subjects {
