@@ -79,8 +79,15 @@ def get_detail_data(text):
     grade_policy = get_text_by_id('lblHyokaHoho')
     final_test = get_text_by_id('lblOfficeHour')
     message = get_text_by_id('lblGakuseiMessage')
-    contents = dom.xpath(
+    content_rows = dom.xpath(
         "//table[@id='dgJugyoKeikaku1']//tr[not(position()=1)]")
+
+    def separate_cells(row):
+        cells = row.xpath("td")
+        cells = [cell.text_content().strip() for cell in cells]
+        return " ".join(cells)
+
+    contents = [separate_cells(row) for row in content_rows]
 
     return {
         'day':  "\n".join(day),
@@ -93,7 +100,7 @@ def get_detail_data(text):
         'gradePolicy': "\n".join(grade_policy),
         'finalTest': "\n".join(final_test),
         'message': "\n".join(message),
-        'contents': [content.text_content().strip() for content in contents]
+        'contents': contents
     }
 
 
