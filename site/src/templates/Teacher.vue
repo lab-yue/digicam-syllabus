@@ -1,4 +1,26 @@
 <template>
+  <syllabus-layout>
+    <v-card width="1500" class="mx-auto">
+      <v-card-title class="s-title">
+        <a
+          :href="`https://www.google.com/search?q=${$page.teacher.name}`"
+          rel="noopener"
+          target="_blank"
+        >{{ $page.teacher.name }}</a>
+
+        <v-chip class="ma-2" color="primary" text-color="white">
+          講義数
+          <v-avatar right class="primary darken-4">{{ subjects.length }}</v-avatar>
+        </v-chip>
+      </v-card-title>
+
+      <v-container class="pa-2" fluid>
+        <syllabus-statistics :subjects="$page.teacher.subjects" :keys="['field','category']" />
+        <syllabus-list :items="subjects" />
+      </v-container>
+    </v-card>
+  </syllabus-layout>
+  <!--
   <syllabus-layout class="teacher">
     <h1 class="syllabus-page-title">
       <a
@@ -18,6 +40,7 @@
 
     <syllabus-list :items="subjects" />
   </syllabus-layout>
+  -->
 </template>
 
 <page-query>
@@ -74,6 +97,11 @@ export default {
       color: $theme-green;
       text-align: center;
     }
+  }
+}
+.s {
+  &-title {
+    margin: 30px 0 10px 30px;
   }
 }
 </style>
