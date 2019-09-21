@@ -51,6 +51,13 @@ export default {
 </script>
 
 <style lang="scss">
+.s {
+  &-card {
+    box-shadow: none;
+    margin: 0 20px;
+  }
+}
+/*
 .subject {
   &-margin:not(:first-child) {
     margin-top: 4rem;
@@ -76,4 +83,5 @@ export default {
     }
   }
 }
+*/
 </style>

@@ -1,4 +1,11 @@
 <template>
+  <div>
+    <v-card class="s-card">
+      <v-card-title>Subjects</v-card-title>
+      <syllabus-card :links="items" :card_col="3" />
+    </v-card>
+  </div>
+  <!--
   <div class="syllabus-list-wrapper">
     <h2 class="syllabus-page-statistics-title">Subjects</h2>
     <ul class="syllabus-list">
@@ -11,15 +18,28 @@
       </li>
     </ul>
   </div>
+  -->
 </template>
 
 <script>
+import SyllabusCard from "../components/SyllabusCard";
+
 export default {
-  props: ["items"]
+  props: ["items"],
+  components: {
+    SyllabusCard
+  }
 };
 </script>
 
 <style lang="scss">
+.s {
+  &-card {
+    box-shadow: none !important;
+    margin: 0 20px;
+  }
+}
+/*
 .syllabus-list {
   &-wrapper {
     padding: 0 2rem;
@@ -47,4 +67,5 @@ export default {
     }
   }
 }
+*/
 </style>
