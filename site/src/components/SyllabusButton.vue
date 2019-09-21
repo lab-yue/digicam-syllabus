@@ -10,7 +10,7 @@
         'syllabus-button-link',
         { 'syllabus-button-link--padding': link.extra },
       ]"
-      :to="link.url"
+      :to="link.url === '#' ? null: link.url"
     >
       {{ link.name }}
       <span class="syllabus-button-extra">{{ link.extra }}</span>

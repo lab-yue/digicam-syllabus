@@ -42,12 +42,20 @@ $theme-pale-green: #f2f6f5;
       font-size: 2rem;
       color: slategrey;
       text-align: center;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
       &-count {
         background-color: slategrey;
         color: #fff;
         padding: 5px 10px;
         border-radius: 5px;
         margin: 0 0.5rem;
+      }
+      &-sub {
+        font-size: 1rem;
+        color: #93b5b3;
+        margin: 0 1rem;
       }
     }
   }

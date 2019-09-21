@@ -7,6 +7,7 @@
         rel="noopener"
         target="_blank"
       >{{ $page.teacher.name }}</a>
+      <span class="syllabus-page-title-sub">{{$page.teacher.position}}</span>
     </h1>
 
     <p class="teacher-subjects-count">
@@ -24,6 +25,7 @@
 query Teacher($id: ID!) {
   teacher: teacher(id: $id) {
     name
+    position
     subjects {
       node {
         id
