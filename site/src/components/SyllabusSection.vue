@@ -1,4 +1,14 @@
 <template>
+  <v-card class="s-card" v-if="isNotEmpty">
+    <v-card-title>{{title}}</v-card-title>
+    <p class="s-txt" v-if="typeof content === 'string'" v-html="eval(content)"></p>
+    <ul v-else-if="Array.isArray(content)">
+      <li v-for="line in content" :key="line">
+        <p v-html="eval(line)"></p>
+      </li>
+    </ul>
+  </v-card>
+  <!--
   <section class="subject-section" v-if="isNotEmpty">
     <h2 class="syllabus-page-statistics-title subject-margin">{{title}}</h2>
     <div class="subject-section-txt">
@@ -10,6 +20,7 @@
       </ul>
     </div>
   </section>
+  -->
 </template>
 
 <script>
@@ -55,6 +66,11 @@ export default {
   &-card {
     box-shadow: none;
     margin: 0 20px;
+  }
+  &-txt {
+    white-space: pre-line;
+    line-height: 2;
+    padding-left: 20px;
   }
 }
 /*
