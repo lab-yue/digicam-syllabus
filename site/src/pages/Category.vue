@@ -1,5 +1,18 @@
 <template>
   <syllabus-layout>
+    <v-card width="1500" class="mx-auto category-title">
+      <v-card-title>
+        All
+        <span class="category-length">{{ categories.length }}</span>
+        Categories
+        <v-spacer />
+        <v-text-field v-model="searchText" append-icon="search" label="カテゴリ検索"></v-text-field>
+      </v-card-title>
+      <syllabus-card :links="categories" :card_col="4" />
+    </v-card>
+  </syllabus-layout>
+  <!--
+  <syllabus-layout>
     <h2 class="syllabus-page-title">
       All
       <span class="syllabus-page-title-count">{{ categories.length }}</span>
@@ -16,15 +29,19 @@
       <syllabus-button :link="link" v-for="link in categories" :key="link.id" />
     </transition-group>
   </syllabus-layout>
+  -->
 </template>
 
 <script>
+import SyllabusCard from "../components/SyllabusCard";
+
 export default {
   metaInfo: {
     title: "Categories"
   },
   data() {
     return {
+      page_col: 3,
       searchText: ""
     };
   },
@@ -45,6 +62,9 @@ export default {
       }
       return items;
     }
+  },
+  components: {
+    SyllabusCard
   }
 };
 </script>
@@ -65,4 +85,15 @@ query {
 }
 </page-query>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.category {
+  &-title {
+    padding: 30px 40px;
+  }
+  &-length {
+    margin: 5px;
+    font-size: 1.2em;
+    color: rgb(0, 147, 226);
+  }
+}
+</style>

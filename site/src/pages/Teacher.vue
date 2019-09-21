@@ -1,4 +1,17 @@
 <template>
+  <syllabus-layout>
+    <v-card width="1500" class="mx-auto teacher-title">
+      <v-card-title>
+        All
+        <span class="teacher-length">{{ teachers.length }}</span>
+        Teachers
+        <v-spacer />
+        <v-text-field v-model="searchText" append-icon="search" label="名前検索"></v-text-field>
+      </v-card-title>
+      <syllabus-card :links="teachers" :card_col="4" />
+    </v-card>
+  </syllabus-layout>
+  <!--
   <syllabus-layout class="teacher">
     <h1 class="syllabus-page-title">
       All
@@ -11,15 +24,19 @@
       <syllabus-button :link="link" v-for="link in teachers" :key="link.name" />
     </transition-group>
   </syllabus-layout>
+  -->
 </template>
 
 <script>
+import SyllabusCard from "../components/SyllabusCard";
+
 export default {
   metaInfo: {
     title: "Teachers"
   },
   data() {
     return {
+      page_col: 4,
       searchText: ""
     };
   },
@@ -41,6 +58,9 @@ export default {
       }
       return teachers;
     }
+  },
+  components: {
+    SyllabusCard
   }
 };
 </script>
@@ -61,4 +81,15 @@ query {
 }
 </page-query>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.teacher {
+  &-title {
+    padding: 30px 40px;
+  }
+  &-length {
+    margin: 5px;
+    font-size: 1.2em;
+    color: rgb(0, 147, 226);
+  }
+}
+</style>

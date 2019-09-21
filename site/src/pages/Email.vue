@@ -1,5 +1,52 @@
 <template>
   <syllabus-layout>
+    <v-card width="1500" class="mx-auto email-title">
+      <v-card-title>
+        All
+        <span class="email-length">{{ $page.allEmail.totalCount }}</span>
+        Records
+        <v-switch class="simplify-switch" v-model="simplify" label="Simplify" />
+        <v-spacer />
+        <v-text-field v-model="searchText" append-icon="search" label="名前検索"></v-text-field>
+      </v-card-title>
+      <v-simple-table fixed-header>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="email in emails" :key="email.id">
+            <td class="email-linkstyle">
+              <g-link
+                class="email-linkstyle"
+                :to="`/teacher/${email.teacher.id}`"
+              >{{ email.teacher.name }}</g-link>
+            </td>
+
+            <td class="email-padding-left-0">
+              <v-col v-for="(address,id) in email.addresses" :key="id">
+                <a class="email-linkstyle" :href="`mailto:${address.link}`">{{address.link}}</a>
+                <span v-if="!simplify">
+                  <g-link :to="`/subject/${address.subject.id}`">
+                    <v-btn
+                      class="ma-2 email-substyle"
+                      tile
+                      outlined
+                      color="primary"
+                    >{{address.subject.title}}</v-btn>
+                  </g-link>
+                </span>
+              </v-col>
+            </td>
+          </tr>
+        </tbody>
+      </v-simple-table>
+    </v-card>
+  </syllabus-layout>
+  <!--
+  <syllabus-layout>
     <h2 class="syllabus-page-title">
       All
       <span class="syllabus-page-title-count">{{ $page.allEmail.totalCount }}</span>
@@ -28,6 +75,7 @@
       </li>
     </ul>
   </syllabus-layout>
+  -->
 </template>
 
 <page-query>
@@ -96,6 +144,33 @@ export default {
 
 <style lang="scss" scoped>
 .email {
+  &-title {
+    padding: 30px 40px;
+  }
+  &-length {
+    margin: 5px;
+    font-size: 1.2em;
+    color: rgb(0, 147, 226);
+  }
+  &-linkstyle {
+    color: #000;
+    font-size: 1.1em;
+  }
+  &-substyle {
+    font-size: 0.8em;
+    letter-spacing: -0.5px;
+  }
+  &-padding-left-0 {
+    padding-left: 0;
+  }
+}
+.simplify {
+  &-switch {
+    margin-left: 20px;
+  }
+}
+/*
+.email {
   &-teacher {
     width: 40%;
   }
@@ -146,4 +221,5 @@ export default {
     }
   }
 }
+*/
 </style>

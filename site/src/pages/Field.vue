@@ -1,5 +1,18 @@
 <template>
   <syllabus-layout>
+    <v-card width="1500" class="mx-auto field-title">
+      <v-card-title>
+        All
+        <span class="field-length">{{ fields.length }}</span>
+        Fields
+        <v-spacer />
+        <v-text-field v-model="searchText" append-icon="search" label="分野名検索"></v-text-field>
+      </v-card-title>
+      <syllabus-card :links="fields" :card_col="4" />
+    </v-card>
+  </syllabus-layout>
+  <!--
+  <syllabus-layout>
     <h2 class="syllabus-page-title">
       All
       <span class="syllabus-page-title-count">{{ fields.length }}</span> Fields
@@ -15,9 +28,12 @@
       <syllabus-button :link="link" v-for="link in fields" :key="link.id" />
     </transition-group>
   </syllabus-layout>
+  -->
 </template>
 
 <script>
+import SyllabusCard from "../components/SyllabusCard";
+
 export default {
   metaInfo: {
     title: "Fields"
@@ -44,6 +60,9 @@ export default {
       }
       return items;
     }
+  },
+  components: {
+    SyllabusCard
   }
 };
 </script>
@@ -64,4 +83,15 @@ query {
 }
 </page-query>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.field {
+  &-title {
+    padding: 30px 40px;
+  }
+  &-length {
+    margin: 5px;
+    font-size: 1.2em;
+    color: rgb(0, 147, 226);
+  }
+}
+</style>
