@@ -1,4 +1,16 @@
 <template>
+  <v-app>
+    <syllabus-header />
+    <v-content>
+      <transition name="fade" mode="out-in" appear>
+        <main class="main">
+          <slot />
+        </main>
+      </transition>
+    </v-content>
+    <syllabus-footer />
+  </v-app>
+  <!--
   <div class="layout">
     <div class="top">
       <syllabus-header />
@@ -10,6 +22,7 @@
     </div>
     <syllabus-footer />
   </div>
+  -->
 </template>
 
 <static-query>
@@ -76,6 +89,7 @@ a {
   flex: 1;
   display: flex;
   flex-direction: column;
+  margin-top: 10px;
 }
 
 .fade-enter-active {
