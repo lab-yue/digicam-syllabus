@@ -20,6 +20,10 @@ class Instance(object):
         with open(save_path, 'w') as s:
             json.dump(data, s, ensure_ascii=False, indent=4)
     
+    def load(self):
+        with open(SAVE_DATA_FILE, 'r') as f:
+            self.data = json.load(f).get('data')
+
     @staticmethod
     def hash(text):
         md5 = hashlib.md5()
@@ -51,7 +55,7 @@ class Instance(object):
                     'text': subject['teacher'],
                     'type': 'teacher',
                     'title': '教員',
-                    'id': hash(f'teacher:{subject["teacher"]}'),
+                    'id': self.hash(f'teacher:{subject["teacher"]}'),
                 })
 
                 teacher_list.append(subject['teacher'])
@@ -67,3 +71,8 @@ class Instance(object):
              {
                  'data': search_data
              })
+
+if __name__ == '__main__':
+    db = Instance()
+    db.load()
+    db.build_search_data()
