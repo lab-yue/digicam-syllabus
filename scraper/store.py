@@ -16,7 +16,7 @@ class Instance(object):
         if not save_path:
             save_path = SAVE_DATA_FILE
         if not data:
-            data = self.data
+            data = { 'data': self.data }
         with open(save_path, 'w') as s:
             json.dump(data, s, ensure_ascii=False, indent=4)
     
@@ -31,7 +31,7 @@ class Instance(object):
         teacher_list = []
         search_data = []
 
-        for subject in self.data['data']:
+        for subject in self.data:
             origin_detail = subject['detail']
 
             detail_list = []

@@ -47,7 +47,6 @@ async def main():
     # This is faster but it will cause server connection error
     # await asyncio.gather(*(get_page(cookies, task) for task in tasks))
 
-    print(len(db.data))
     await s.close()
     db.save('../data/update.json',
           {
