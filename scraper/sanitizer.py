@@ -40,27 +40,32 @@ def get_page_summary(tag):
 count = 0
 done = 0
 async def get_page_data_list(page_text):
-    page_text = page_text.replace('&nbsp;', '')
-    tag_list = subject_reg.findall(page_text)
+    async with aiohttp.ClientSession(
+        connector=aiohttp.TCPConnector(
+            ssl=False,
+            limit=50,
+            force_close=True
+        )) as s:
+            page_text = page_text.replace('&nbsp;', '')
+            tag_list = subject_reg.findall(page_text)
 
-    async def get_tag(tag):
-        global count
-        global done
-        count += 1
-        _id = count
-        subject = get_page_summary(tag)
-        detail_link = HOST + detail_link_reg.findall(tag)[0]
-        async with aiohttp.ClientSession() as s:
-            async with s.get(detail_link) as res:
-                detail = get_detail_data(await res.text())
-        subject['detail'] = detail
-        done +=1
-        sys.stdout.write(f'\r {done}/ {count} done' )    
-        sys.stdout.flush()
-        return subject
+            async def get_tag(tag):
+                global count
+                global done
+                count += 1
+                _id = count
+                subject = get_page_summary(tag)
+                detail_link = HOST + detail_link_reg.findall(tag)[0]
+                async with s.get(detail_link) as res:
+                    detail = get_detail_data(await res.text())
+                subject['detail'] = detail
+                done +=1
+                sys.stdout.write(f'\r\t{done} / {count} done' )    
+                sys.stdout.flush()
+                return subject
 
-    page_data_list = await asyncio.gather(*(get_tag(tag) for tag in tag_list))
-    return page_data_list
+            page_data_list = await asyncio.gather(*(get_tag(tag) for tag in tag_list))
+            return page_data_list
 
 
 def get_viewstate(page_text):

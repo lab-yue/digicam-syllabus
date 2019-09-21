@@ -10,8 +10,12 @@ import store
 from constants import SYLLABUS_URL, HOST
 
 async def setup():
-    # async with aiohttp.ClientSession() as s:
-    s =  aiohttp.ClientSession()
+    s =  aiohttp.ClientSession(
+            connector=aiohttp.TCPConnector(
+                ssl=False,
+                limit=50,
+                force_close=True
+            ))
 
     async with s.get(SYLLABUS_URL) as res:
         viewstate = sanitizer.get_viewstate(await res.text())
@@ -23,8 +27,6 @@ async def setup():
             text = await res.text()
             data_list = await sanitizer.get_page_data_list(text)
             db.collect(data_list)
-            # cookies = {}
-            # cookies[SID_KEY] = res.cookies.get(SID_KEY)
             postback_list = sanitizer.get_postback_list(text)
             viewstate = sanitizer.get_viewstate(text)
             return s, viewstate, postback_list
@@ -32,7 +34,7 @@ async def setup():
 
 async def main():
     print('\n========= start =========\n')
-    #tasks = []
+    tasks = []
     s, viewstate, postback_list = await setup()
 
     for postback in postback_list[:int(len(postback_list) / 2)]:
@@ -40,12 +42,9 @@ async def main():
             '__EVENTTARGET': postback.replace('$', ':'),
             '__VIEWSTATE': viewstate
         }
-        await get_page(s, task)
-        # await get_page(cookies, task)
-        # tasks.append(task)
+        tasks.append(task)
 
-    # This is faster but it will cause server connection error
-    # await asyncio.gather(*(get_page(cookies, task) for task in tasks))
+    await asyncio.gather(*(get_page(s, task) for task in tasks))
 
     await s.close()
     db.save('../data/update.json',
@@ -53,11 +52,10 @@ async def main():
               'updateTime': datetime.now().isoformat().split('.')[0].replace('T', ' ')
           })
     db.build_search_data()
-    print('\n========= end =========\n')
+    print('\n=========  end  =========\n')
 
 
 async def get_page(s, form_data):
-    #async with aiohttp.ClientSession(cookies=cookies) as s:
     async with s.post(SYLLABUS_URL, data=form_data) as res:
         text = await res.text()
         data_list = await sanitizer.get_page_data_list(text)
