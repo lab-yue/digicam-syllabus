@@ -1,7 +1,8 @@
 import re
-
-import requests
+import asyncio
+import aiohttp
 from lxml import html
+import sys
 
 from constants import HOST
 
@@ -36,25 +37,29 @@ def get_page_summary(tag):
 
     return summary
 
-
-def get_page_data_list(page_text):
+count = 0
+done = 0
+async def get_page_data_list(page_text):
     page_text = page_text.replace('&nbsp;', '')
     tag_list = subject_reg.findall(page_text)
-    page_data_list = []
 
-    for j, tag in enumerate(tag_list):
-        print(f'========= detail {j + 1} =========')
-
+    async def get_tag(tag):
+        global count
+        global done
+        count += 1
+        _id = count
         subject = get_page_summary(tag)
-
         detail_link = HOST + detail_link_reg.findall(tag)[0]
-        detail_text = requests.get(detail_link).text
-        detail = get_detail_data(detail_text)
+        async with aiohttp.ClientSession() as s:
+            async with s.get(detail_link) as res:
+                detail = get_detail_data(await res.text())
         subject['detail'] = detail
-        print(detail)
-        print(subject['title'])
+        done +=1
+        sys.stdout.write(f'\r {done}/ {count} done' )    
+        sys.stdout.flush()
+        return subject
 
-        page_data_list.append(subject)
+    page_data_list = await asyncio.gather(*(get_tag(tag) for tag in tag_list))
     return page_data_list
 
 
@@ -81,6 +86,7 @@ def get_detail_data(text):
     message = get_text_by_id('lblGakuseiMessage')
     content_rows = dom.xpath(
         "//table[@id='dgJugyoKeikaku1']//tr[not(position()=1)]")
+    teacher_position = dom.xpath('//table[@id="dgKogiKyoinList"]//tr[2]/td[1]/text()')
 
     def separate_cells(row):
         cells = row.xpath("td")
@@ -92,6 +98,7 @@ def get_detail_data(text):
     return {
         'day':  "\n".join(day),
         'time':  "\n".join(time),
+        'teacherPosition': "\n".join(teacher_position),
         'target': "\n".join(target),
         'purpose': "\n".join(purpose),
         'keywords': keywords,
