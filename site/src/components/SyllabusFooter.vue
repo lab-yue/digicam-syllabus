@@ -1,4 +1,21 @@
 <template>
+  <v-footer padless>
+    <v-col class="syllabus-footer" cols="12">
+      <span>
+        updated:
+        <time>{{updateTime}}</time>
+      </span>
+      <span>
+        edit on
+        <a
+          href="https://github.com/koorimizuw/digicam-syllabus-material-ui"
+          rel="noopener"
+          target="_blank"
+        >github</a>
+      </span>
+    </v-col>
+  </v-footer>
+  <!--
   <footer class="syllabus-footer">
     <span>
       updated:
@@ -14,6 +31,7 @@
       >github</a>
     </span>
   </footer>
+  -->
 </template>
 
 <script>
@@ -30,6 +48,11 @@ export default {
 
 <style lang="scss">
 .syllabus-footer {
+  display: flex;
+  justify-content: space-between;
+}
+/*
+.syllabus-footer {
   margin-top: 3rem;
   align-items: center;
   padding: 0 2rem;
@@ -45,4 +68,5 @@ export default {
     }
   }
 }
+*/
 </style>
