@@ -2,15 +2,23 @@
   <syllabus-layout>
     <v-card width="1500" class="mx-auto">
       <v-card-title class="s-title">
-        <a
-          :href="`https://www.google.com/search?q=${$page.teacher.name}`"
-          rel="noopener"
-          target="_blank"
-        >{{ $page.teacher.name }}</a>
-
-        <v-chip class="ma-2" color="primary" text-color="white">
+        <v-tooltip top>
+          <template v-slot:activator="{ on }">
+            <span v-on="on">
+              <a
+                :href="`https://www.google.com/search?q=${$page.teacher.name}`"
+                rel="noopener"
+                target="_blank"
+              >{{ $page.teacher.name }}</a>
+            </span>
+          </template>
+          <span>{{$page.teacher.position}}</span>
+        </v-tooltip>
+        <v-chip class="ma-2" color="primary" outlined>
           講義数
-          <v-avatar right class="primary darken-4">{{ subjects.length }}</v-avatar>
+          <v-avatar right class="primary darken-2">
+            <span class="white--text">{{ subjects.length }}</span>
+          </v-avatar>
         </v-chip>
       </v-card-title>
 
@@ -44,9 +52,10 @@
 </template>
 
 <page-query>
-query Teacher($id: String!) {
+query Teacher($id: ID!) {
   teacher: teacher(id: $id) {
     name
+    position
     subjects {
       node {
         id
