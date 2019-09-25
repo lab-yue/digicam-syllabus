@@ -81,13 +81,18 @@ module.exports = function (api) {
     const years = {};
     const fields = {};
 
-    const gather = (collection, key, code) => {
+    const gather = (name, collection, key, subject) => {
       if (key in collection) {
-        collection[key].subjects.push(code);
-      } else {
-        collection[key] = {
-          subjects: [code]
-        };
+        collection[key].subjects.push(subject.code);
+        return
+      }
+
+      collection[key] = {
+        subjects: [subject.code]
+      };
+
+      if (name === 'teacher') {
+        collection[key]['position'] = subject.detail.teacherPosition
       }
     };
 
@@ -109,10 +114,10 @@ module.exports = function (api) {
     };
 
     syllabus.data.map(subject => {
-      gather(teachers, subject.teacher, subject.code);
-      gather(categories, subject.category, subject.code);
-      gather(years, subject.year, subject.code);
-      gather(fields, subject.field, subject.code);
+      gather('teacher', teachers, subject.teacher, subject);
+      gather('category', categories, subject.category, subject);
+      gather('year', years, subject.year, subject);
+      gather('field', fields, subject.field, subject);
     });
 
     create('teacher', teacherType, teachers);
@@ -143,7 +148,7 @@ module.exports = function (api) {
         id: subject.code,
         detail: createReference(detailNode),
         teacher: createReference("Teacher", teachers[subject.teacher].id),
-        categories: createReference("Categoy", categories[subject.category].id),
+        categories: createReference("Category", categories[subject.category].id),
         year: createReference("Year", years[subject.year].id)
       });
     });
