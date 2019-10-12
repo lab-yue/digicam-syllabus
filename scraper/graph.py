@@ -8,7 +8,6 @@ search_db = store.Instance()
 search_db.load("../data/search.json")
 
 dot = Digraph(comment='DHU')
-dot.node('START', 'Start')
 
 titleMap = {}
 
@@ -18,7 +17,6 @@ for s in syllabus_db.data:
 
     titleMap[generalTitle] = code
     dot.node(code, generalTitle)
-    dot.node('START', code, constraint='false')
 
 titles = [*titleMap]
 
