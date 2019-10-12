@@ -3,12 +3,13 @@ import hashlib
 
 from constants import SAVE_DATA_FILE
 
+
 class Instance(object):
 
     def __init__(self):
         self.data = []
 
-    def collect(self,items):
+    def collect(self, items):
         self.data += items
         self.save()
 
@@ -16,12 +17,12 @@ class Instance(object):
         if not save_path:
             save_path = SAVE_DATA_FILE
         if not data:
-            data = { 'data': self.data }
+            data = {'data': self.data}
         with open(save_path, 'w') as s:
             json.dump(data, s, ensure_ascii=False, indent=4)
-    
-    def load(self):
-        with open(SAVE_DATA_FILE, 'r') as f:
+
+    def load(self, file=SAVE_DATA_FILE):
+        with open(file, 'r') as f:
             self.data = json.load(f).get('data')
 
     @staticmethod
@@ -29,7 +30,6 @@ class Instance(object):
         md5 = hashlib.md5()
         md5.update(text.encode('utf-8'))
         return md5.hexdigest()[:8]
-
 
     def build_search_data(self):
         teacher_list = []
@@ -68,9 +68,10 @@ class Instance(object):
             })
 
         self.save('../data/search.json',
-             {
-                 'data': search_data
-             })
+                  {
+                      'data': search_data
+                  })
+
 
 if __name__ == '__main__':
     db = Instance()
