@@ -22,11 +22,12 @@ jobs:
           pip --version;
 
       - name: install deps
+        working-directory: ./scraper
         run: |
-          cd scraper;
           ls;
           pip install -r requirements.txt;
 
       - name: run check
+        working-directory: ./scraper
         run: |
           python ./check.py;
