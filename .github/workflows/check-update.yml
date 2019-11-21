@@ -29,8 +29,7 @@ jobs:
 
       - name: run check
         working-directory: ./scraper
+        env:
+          DISCORD_WEB_HOOK: ${{ secrets.DISCORD_WEB_HOOK }}
         run: |
           python ./check.py;
-
-      - name: notify
-        run: "curl -X POST ${{ secrets.DISCORD_WEB_HOOK }} -d '{\"content\": "test"}'"
