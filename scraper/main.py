@@ -2,20 +2,20 @@ import asyncio
 from concurrent.futures import ProcessPoolExecutor
 import json
 import aiohttp
-import requests
 from datetime import datetime
 
 import sanitizer
 import store
 from constants import SYLLABUS_URL, HOST
 
+
 async def setup():
-    s =  aiohttp.ClientSession(
-            connector=aiohttp.TCPConnector(
-                ssl=False,
-                limit=50,
-                force_close=True
-            ))
+    s = aiohttp.ClientSession(
+        connector=aiohttp.TCPConnector(
+            ssl=False,
+            limit=50,
+            force_close=True
+        ))
 
     async with s.get(SYLLABUS_URL) as res:
         viewstate = sanitizer.get_viewstate(await res.text())
@@ -48,9 +48,9 @@ async def main():
 
     await s.close()
     db.save('../data/update.json',
-          {
-              'updateTime': datetime.now().isoformat().split('.')[0].replace('T', ' ')
-          })
+            {
+                'updateTime': datetime.now().isoformat().split('.')[0].replace('T', ' ')
+            })
     db.build_search_data()
     print('\n=========  end  =========\n')
 
