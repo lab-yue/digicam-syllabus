@@ -1,6 +1,6 @@
 import asyncio
 import aiohttp
-
+import os
 import sanitizer
 import store
 from main import setup
@@ -35,16 +35,24 @@ async def check_len():
         text = await res.text()
         web_len = int(sanitizer.get_syllabus_count(text))
 
-    await s.close()
-
     is_equal = local_len == web_len
     message = 'same.' if is_equal else 'should update.'
 
-    print(f'''
+    info = f'''
     local_len, {local_len}
     web_len, {web_len}
     {message}
-    ''')
+    '''
+
+    print(info)
+
+    DISCORD_WEB_HOOK = os.environ.get('DISCORD_WEB_HOOK', '')
+    if DISCORD_WEB_HOOK:
+        await s.post(DISCORD_WEB_HOOK, data={'content': message})
+    else:
+        print('skip notify')
+
+    await s.close()
 
     return is_equal
 
