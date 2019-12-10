@@ -14,7 +14,7 @@ function addStyleResource(rule) {
 
 module.exports = {
   siteName: "Syllabus",
-  siteDescription: "Better Syllabus for DHU (Material UI)",
+  siteDescription: "Better Syllabus for DHU",
   extends: ["prettier", "plugin:gridsome/recommended"],
   chainWebpack(config) {
     const types = ["vue-modules", "vue", "normal-modules", "normal"];

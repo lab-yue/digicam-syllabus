@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card class="s-card">
-      <v-card-title>Subjects</v-card-title>
+      <v-card-title class="s-subtitle">Subjects</v-card-title>
       <syllabus-card :links="items" :card_col="3" />
     </v-card>
   </div>
@@ -37,6 +37,9 @@ export default {
   &-card {
     box-shadow: none !important;
     margin: 0 20px;
+  }
+  &-subtitle {
+    font-size: 1.3rem;
   }
 }
 /*

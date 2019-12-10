@@ -5,17 +5,20 @@
     "dev": "gridsome develop",
     "explore": "gridsome explore",
     "gen": "cp ../data/search.json ../functions/search.json && gridsome build",
-    "lint": "eslint \"src/**/*.{js,vue}\" --fix"
+    "lint": "eslint \"src/**/*.{js,vue}\""
   },
   "dependencies": {
     "eslint-config-prettier": "^6.0.0",
-    "gridsome": "^0.6.0",
+    "gridsome": "^0.7.5",
     "node-sass": "^4.12.0",
     "sass-loader": "^7.1.0",
-    "style-resources-loader": "^1.2.1"
+    "style-resources-loader": "^1.2.1",
+    "vuetify": "^2.0.17"
   },
   "devDependencies": {
+    "@mdi/font": "^4.4.95",
     "eslint": "^6.2.2",
-    "eslint-plugin-gridsome": "^1.2.6"
+    "eslint-plugin-gridsome": "^1.2.6",
+    "webpack-node-externals": "^1.7.2"
   }
 }

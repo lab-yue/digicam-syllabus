@@ -6,7 +6,7 @@
           <v-list>
             <template v-for="(link, index) in links">
               <g-link v-if="index%card_col===n-1" :key="link.id" :to="link.url">
-                <v-list-item @click>
+                <v-list-item link>
                   <v-list-item-content>
                     <v-list-item-title v-text="link.name"></v-list-item-title>
                   </v-list-item-content>

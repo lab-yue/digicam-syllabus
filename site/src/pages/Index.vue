@@ -4,9 +4,6 @@
       <h1 class="home-title">
         <v-icon>mdi-watch</v-icon>Syllabus
       </h1>
-      <div class="syllabus-container">
-        <syllabus-button class="home-button" :link="link" v-for="link in links" :key="link.name" />
-      </div>
     </div>
   </syllabus-layout>
 </template>

@@ -1,6 +1,6 @@
 <template>
   <v-card class="s-card" v-if="isNotEmpty">
-    <v-card-title>{{title}}</v-card-title>
+    <v-card-title class="s-subtitle">{{title}}</v-card-title>
     <p class="s-txt" v-if="typeof content === 'string'" v-html="eval(content)"></p>
     <ul v-else-if="Array.isArray(content)">
       <li v-for="line in content" :key="line">
@@ -71,6 +71,9 @@ export default {
     white-space: pre-line;
     line-height: 2;
     padding-left: 20px;
+  }
+  &-subtitle {
+    font-size: 1.3rem !important;
   }
 }
 /*

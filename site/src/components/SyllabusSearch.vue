@@ -1,4 +1,53 @@
 <template>
+  <div class="search-bar">
+    <v-text-field
+      flat
+      hide-details
+      prepend-inner-icon="search"
+      label="Search"
+      @focus="open"
+      @input="fetchResultList"
+      v-model="searchText"
+    ></v-text-field>
+    <!--
+      @
+      @ !!!!!!!!!!!!!!
+      @
+    <v-card class="mx-auto search-card">
+      <v-list class="search-list" v-if="isOpen" two-line>
+        <v-list-item-group active-class="teal--text">
+          <template v-for="(item, index) in items">
+            <v-list-item :key="item.title">
+              <v-list-item-content>
+                <v-list-item-title v-text="item.title"></v-list-item-title>
+                <v-list-item-subtitle v-text="item.subtitle"></v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </template>
+        </v-list-item-group>
+      </v-list>
+    </v-card>
+      @
+      @ !!!!!!!!!!!!!!
+      @
+    -->
+    <!--
+    <v-list class="search-list" two-line>
+      <v-list-item-group active-class="teal--text" v-model="isOpen">
+        <template v-for="(result,id) in resultList">
+          <v-list-item :key="id">
+            <v-list-item-content>
+              <v-list-item-title v-text="result.title"></v-list-item-title>
+              <v-list-item-subtitle v-text="result.text"></v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+        </template>
+      </v-list-item-group>
+    </v-list>
+    -->
+  </div>
+
+  <!--
   <div class="syllabus-search">
     <input
       @focus="open"
@@ -22,6 +71,7 @@
       </li>
     </ul>
   </div>
+  -->
 </template>
 
 <script>
@@ -33,7 +83,29 @@ export default {
       searchText: "",
       isOpen: false,
       more: false,
-      resultList: []
+      resultList: [],
+      items: [
+        {
+          title: "Subject1",
+          subtitle: "Introduction1"
+        },
+        {
+          title: "Subject2",
+          subtitle: "Introduction2"
+        },
+        {
+          title: "Subject3",
+          subtitle: "Introduction3"
+        },
+        {
+          title: "Subject4",
+          subtitle: "Introduction4"
+        },
+        {
+          title: "Subject5",
+          subtitle: "Introduction5"
+        }
+      ]
     };
   },
   methods: {
@@ -75,7 +147,18 @@ export default {
 </script>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
+.search {
+  &-bar {
+    width: 30%;
+    margin-top: 15px;
+  }
+  &-card {
+    position: absolute;
+    width: 30%;
+  }
+}
+/*
 .syllabus-search {
   width: 50%;
   text-align: right;
@@ -156,4 +239,5 @@ export default {
     }
   }
 }
+*/
 </style>

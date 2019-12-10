@@ -2,7 +2,7 @@
   <div>
     <template v-for="(field,index) of Object.keys(info)">
       <v-card class="s-card" :key="`${field}-${index}`">
-        <v-card-title>{{upper(field)}}</v-card-title>
+        <v-card-title class="s-subtitle">{{upper(field)}}</v-card-title>
         <syllabus-card v-if="field != 'teacher'" :links="info[field]" :card_col="3" />
         <syllabus-card v-if="field === 'teacher'" :links="info[field]" :card_col="4" />
       </v-card>
@@ -49,6 +49,9 @@ export default {
   &-card {
     box-shadow: none;
     margin: 0 20px;
+  }
+  &-subtitle {
+    font-size: 1.3rem;
   }
 }
 </style>

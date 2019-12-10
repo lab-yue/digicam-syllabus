@@ -1,5 +1,5 @@
 <template>
-  <v-footer padless>
+  <v-footer class="syllabus-footer-root" padless color="#fafafa">
     <v-col class="syllabus-footer" cols="12">
       <span>
         updated:
@@ -50,6 +50,9 @@ export default {
 .syllabus-footer {
   display: flex;
   justify-content: space-between;
+  &-root {
+    margin-top: 10px;
+  }
 }
 /*
 .syllabus-footer {
