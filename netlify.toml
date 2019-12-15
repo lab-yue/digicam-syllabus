@@ -14,4 +14,4 @@
   command = "yarn gen"
 
   # Netlify functions
-  functions = "../functions/"
+  functions = "functions/"
