@@ -13,11 +13,16 @@ class Instance(object):
         self.data += items
         self.save()
 
+    def sort(self):
+        self.data = sorted(self.data,
+                           key=lambda s: s.get("title", s.get("code", "")))
+
     def save(self, save_path=None, data=None):
         if not save_path:
             save_path = SAVE_DATA_FILE
         if not data:
             data = {'data': self.data}
+        self.sort()
         with open(save_path, 'w') as s:
             json.dump(data, s, ensure_ascii=False, indent=4)
 
@@ -76,4 +81,5 @@ class Instance(object):
 if __name__ == '__main__':
     db = Instance()
     db.load()
-    db.build_search_data()
+    db.save()
+    # db.build_search_data()
