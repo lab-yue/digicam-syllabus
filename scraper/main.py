@@ -13,7 +13,7 @@ async def setup():
     s = aiohttp.ClientSession(
         connector=aiohttp.TCPConnector(
             ssl=False,
-            limit=50,
+            limit=30,
             force_close=True
         ))
 

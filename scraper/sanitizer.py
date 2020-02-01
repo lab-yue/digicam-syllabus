@@ -43,7 +43,7 @@ async def get_page_data_list(page_text):
     async with aiohttp.ClientSession(
         connector=aiohttp.TCPConnector(
             ssl=False,
-            limit=50,
+            limit=10,
             force_close=True
         )) as s:
             page_text = page_text.replace('&nbsp;', '')
