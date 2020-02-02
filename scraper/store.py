@@ -1,6 +1,6 @@
 import json
 import hashlib
-
+import os
 from constants import SAVE_DATA_FILE
 
 
@@ -35,6 +35,33 @@ class Instance(object):
         md5 = hashlib.md5()
         md5.update(text.encode('utf-8'))
         return md5.hexdigest()[:8]
+
+    def build_diff_data(self):
+        prev_file = os.popen('git show HEAD^:../data/syllabus.json').read()
+        prev = json.loads(prev_file).get('data')
+        for current_subject in self.data:
+            code = current_subject.get('code')
+            is_new = True
+            for prev_subject in prev:
+                if prev_subject.get('code') == code:
+                    is_new = False
+                    if prev_subject != current_subject:
+                        print('update',prev_subject.get('title'))
+                        self.diff(prev_subject,current_subject)
+
+            if is_new:
+                print('new',current_subject.get('title'))
+
+    def diff(self, prev, current):
+        for key in prev:
+            prev_value = prev[key]
+            current_value = current[key]
+            if prev_value != current_value:
+                if type(prev_value) == dict:
+                    self.diff(prev_value,current_value)
+                else:
+                    print(f'\t- {prev_value}')
+                    print(f'\t+ {current_value}')
 
     def build_search_data(self):
         teacher_list = []
@@ -81,5 +108,6 @@ class Instance(object):
 if __name__ == '__main__':
     db = Instance()
     db.load()
-    db.save()
+    #db.save()
+    db.build_diff_data()
     # db.build_search_data()
