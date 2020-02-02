@@ -2,7 +2,5 @@
   "scripts": {
     "api": "netlify-lambda serve functions"
   },
-  "devDependencies": {
-    "netlify-lambda": "^1.6.3"
-  }
+  "devDependencies": {}
 }
