@@ -1,3 +1,5 @@
 # Digicam Syllabus Project
 
-> The scraper is written in python right now but may replace it by rust oneday.
+## ⚠️⚠️ Warning: Archived
+
+this repo is moved to [https://github.com/rainy-me/dhu/(https://github.com/rainy-me/dhu/packages/syllabus-site)
